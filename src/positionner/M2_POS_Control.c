@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'M2_POS_Control'.
  *
- * Model version                  : 1.1023
+ * Model version                  : 1.1160
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Tue Mar 15 15:30:19 2022
+ * C/C++ source code generated on : Fri Apr  1 18:04:54 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -35,8 +35,8 @@ void M2_POS_Control_step(void)
   real_T denAccum;
   int32_T memOffset;
   real_T rtb_FBcontroller[42];
-  int32_T k;
   int32_T i;
+  int32_T i_0;
   real_T FBcontroller_tmp[42];
   real_T denAccum_tmp;
   real_T denAccum_tmp_0;
@@ -128,34 +128,25 @@ void M2_POS_Control_step(void)
     M2_POS_Control_U.M2_pos_FB[81];
   rtb_FBcontroller[41] = M2_POS_Control_U.M2_pos_FB[82] -
     M2_POS_Control_U.M2_pos_FB[83];
-  for (k = 0; k < 42; k++) {
-    /* Sum: '<S1>/Sum1' incorporates:
-     *  Gain: '<S1>/Gain'
-     *  Inport: '<Root>/M2_pos_cmd'
-     */
-    denAccum = 0.0;
-    for (memOffset = 0; memOffset < 42; memOffset++) {
-      denAccum += M2_POS_Control_ConstP.Gain_Gain[42 * memOffset + k] *
-        M2_POS_Control_U.M2_pos_cmd[memOffset];
-    }
-
+  for (i = 0; i < 42; i++) {
     /* DiscreteTransferFcn: '<S1>/FB controller' incorporates:
-     *  Gain: '<S1>/Gain'
+     *  Inport: '<Root>/M2_pos_cmd'
      *  Sum: '<S1>/Sum1'
      */
-    memOffset = k * 3;
+    memOffset = i * 3;
     denAccum_tmp = M2_POS_Control_DW.FBcontroller_states[memOffset + 1];
     denAccum_tmp_0 = M2_POS_Control_DW.FBcontroller_states[memOffset + 2];
-    denAccum = (((denAccum - rtb_FBcontroller[k]) - -2.9352762520681424 *
+    denAccum = (((M2_POS_Control_U.M2_pos_cmd[i] - rtb_FBcontroller[i]) -
+                 -2.9352762520681424 *
                  M2_POS_Control_DW.FBcontroller_states[memOffset]) -
                 denAccum_tmp * 2.8743776194924351) - denAccum_tmp_0 *
       -0.9391013674242924;
-    FBcontroller_tmp[k] = denAccum;
+    FBcontroller_tmp[i] = denAccum;
     denAccum *= 251.66908208667073;
     denAccum += 2733.4370450485226 *
       M2_POS_Control_DW.FBcontroller_states[memOffset];
     denAccum += denAccum_tmp * 2699.297992712734;
-    rtb_FBcontroller[k] = denAccum_tmp_0 * 242.35774190570763 + denAccum;
+    rtb_FBcontroller[i] = denAccum_tmp_0 * 242.35774190570763 + denAccum;
   }
 
   /* Outport: '<Root>/M2_pos_act_F' incorporates:
@@ -163,25 +154,25 @@ void M2_POS_Control_step(void)
    */
   for (memOffset = 0; memOffset < 84; memOffset++) {
     M2_POS_Control_Y.M2_pos_act_F[memOffset] = 0.0;
-    k = 0;
-    for (i = 0; i < 42; i++) {
+    i = 0;
+    for (i_0 = 0; i_0 < 42; i_0++) {
       M2_POS_Control_Y.M2_pos_act_F[memOffset] +=
-        M2_POS_Control_ConstP.kroneye4211_Gain[k + memOffset] *
-        rtb_FBcontroller[i];
-      k += 84;
+        M2_POS_Control_ConstP.kroneye4211_Gain[i + memOffset] *
+        rtb_FBcontroller[i_0];
+      i += 84;
     }
   }
 
   /* End of Outport: '<Root>/M2_pos_act_F' */
 
   /* Update for DiscreteTransferFcn: '<S1>/FB controller' */
-  for (k = 0; k < 42; k++) {
-    memOffset = k * 3;
+  for (i = 0; i < 42; i++) {
+    memOffset = i * 3;
     M2_POS_Control_DW.FBcontroller_states[memOffset + 2] =
       M2_POS_Control_DW.FBcontroller_states[memOffset + 1];
     M2_POS_Control_DW.FBcontroller_states[memOffset + 1] =
       M2_POS_Control_DW.FBcontroller_states[memOffset];
-    M2_POS_Control_DW.FBcontroller_states[memOffset] = FBcontroller_tmp[k];
+    M2_POS_Control_DW.FBcontroller_states[memOffset] = FBcontroller_tmp[i];
   }
 
   /* End of Update for DiscreteTransferFcn: '<S1>/FB controller' */

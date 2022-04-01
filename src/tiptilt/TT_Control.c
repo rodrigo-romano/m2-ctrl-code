@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'TT_Control'.
  *
- * Model version                  : 1.1033
+ * Model version                  : 1.1157
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Mar 16 13:45:10 2022
+ * C/C++ source code generated on : Fri Apr  1 17:58:04 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -34,10 +34,7 @@ void TT_Control_step(void)
 {
   /* local block i/o variables */
   real_T rtb_Sum1[14];
-  real_T rtb_TTController[14];
   int32_T i;
-  int32_T i_0;
-  int32_T tmp;
 
   /* Sum: '<S1>/Sum1' incorporates:
    *  Inport: '<Root>/TT_FB'
@@ -49,110 +46,99 @@ void TT_Control_step(void)
 
   /* End of Sum: '<S1>/Sum1' */
 
-  /* DiscreteStateSpace: '<S1>/TT Controller' */
+  /* DiscreteStateSpace: '<S1>/TT Controller' incorporates:
+   *  Outport: '<Root>/TT_cmd'
+   */
   {
-    rtb_TTController[0] = (-0.25475982044084683)*
+    TT_Control_Y.TT_cmd[0] = (-0.25475982044084683)*
       TT_Control_DW.TTController_DSTATE[0]
       + (-1.1853009346526489)*TT_Control_DW.TTController_DSTATE[1]
       + (0.29187341611018253)*TT_Control_DW.TTController_DSTATE[2]
       + (0.27365385151055438)*TT_Control_DW.TTController_DSTATE[3];
-    rtb_TTController[0] += (0.65860373533989458)*rtb_Sum1[0];
-    rtb_TTController[1] = (-0.25475982044084683)*
+    TT_Control_Y.TT_cmd[0] += (0.65860373533989458)*rtb_Sum1[0];
+    TT_Control_Y.TT_cmd[1] = (-0.25475982044084683)*
       TT_Control_DW.TTController_DSTATE[4]
       + (-1.1853009346526489)*TT_Control_DW.TTController_DSTATE[5]
       + (0.29187341611018253)*TT_Control_DW.TTController_DSTATE[6]
       + (0.27365385151055438)*TT_Control_DW.TTController_DSTATE[7];
-    rtb_TTController[1] += (0.65860373533989458)*rtb_Sum1[1];
-    rtb_TTController[2] = (-0.25475982044084683)*
+    TT_Control_Y.TT_cmd[1] += (0.65860373533989458)*rtb_Sum1[1];
+    TT_Control_Y.TT_cmd[2] = (-0.25475982044084683)*
       TT_Control_DW.TTController_DSTATE[8]
       + (-1.1853009346526489)*TT_Control_DW.TTController_DSTATE[9]
       + (0.29187341611018253)*TT_Control_DW.TTController_DSTATE[10]
       + (0.27365385151055438)*TT_Control_DW.TTController_DSTATE[11];
-    rtb_TTController[2] += (0.65860373533989458)*rtb_Sum1[2];
-    rtb_TTController[3] = (-0.25475982044084683)*
+    TT_Control_Y.TT_cmd[2] += (0.65860373533989458)*rtb_Sum1[2];
+    TT_Control_Y.TT_cmd[3] = (-0.25475982044084683)*
       TT_Control_DW.TTController_DSTATE[12]
       + (-1.1853009346526489)*TT_Control_DW.TTController_DSTATE[13]
       + (0.29187341611018253)*TT_Control_DW.TTController_DSTATE[14]
       + (0.27365385151055438)*TT_Control_DW.TTController_DSTATE[15];
-    rtb_TTController[3] += (0.65860373533989458)*rtb_Sum1[3];
-    rtb_TTController[4] = (-0.25475982044084683)*
+    TT_Control_Y.TT_cmd[3] += (0.65860373533989458)*rtb_Sum1[3];
+    TT_Control_Y.TT_cmd[4] = (-0.25475982044084683)*
       TT_Control_DW.TTController_DSTATE[16]
       + (-1.1853009346526489)*TT_Control_DW.TTController_DSTATE[17]
       + (0.29187341611018253)*TT_Control_DW.TTController_DSTATE[18]
       + (0.27365385151055438)*TT_Control_DW.TTController_DSTATE[19];
-    rtb_TTController[4] += (0.65860373533989458)*rtb_Sum1[4];
-    rtb_TTController[5] = (-0.25475982044084683)*
+    TT_Control_Y.TT_cmd[4] += (0.65860373533989458)*rtb_Sum1[4];
+    TT_Control_Y.TT_cmd[5] = (-0.25475982044084683)*
       TT_Control_DW.TTController_DSTATE[20]
       + (-1.1853009346526489)*TT_Control_DW.TTController_DSTATE[21]
       + (0.29187341611018253)*TT_Control_DW.TTController_DSTATE[22]
       + (0.27365385151055438)*TT_Control_DW.TTController_DSTATE[23];
-    rtb_TTController[5] += (0.65860373533989458)*rtb_Sum1[5];
-    rtb_TTController[6] = (-0.25475982044084683)*
+    TT_Control_Y.TT_cmd[5] += (0.65860373533989458)*rtb_Sum1[5];
+    TT_Control_Y.TT_cmd[6] = (-0.25475982044084683)*
       TT_Control_DW.TTController_DSTATE[24]
       + (-1.1853009346526489)*TT_Control_DW.TTController_DSTATE[25]
       + (0.29187341611018253)*TT_Control_DW.TTController_DSTATE[26]
       + (0.27365385151055438)*TT_Control_DW.TTController_DSTATE[27];
-    rtb_TTController[6] += (0.65860373533989458)*rtb_Sum1[6];
-    rtb_TTController[7] = (-0.25475982044084683)*
+    TT_Control_Y.TT_cmd[6] += (0.65860373533989458)*rtb_Sum1[6];
+    TT_Control_Y.TT_cmd[7] = (-0.25475982044084683)*
       TT_Control_DW.TTController_DSTATE[28]
       + (-1.1853009346526489)*TT_Control_DW.TTController_DSTATE[29]
       + (0.29187341611018253)*TT_Control_DW.TTController_DSTATE[30]
       + (0.27365385151055438)*TT_Control_DW.TTController_DSTATE[31];
-    rtb_TTController[7] += (0.65860373533989458)*rtb_Sum1[7];
-    rtb_TTController[8] = (-0.25475982044084683)*
+    TT_Control_Y.TT_cmd[7] += (0.65860373533989458)*rtb_Sum1[7];
+    TT_Control_Y.TT_cmd[8] = (-0.25475982044084683)*
       TT_Control_DW.TTController_DSTATE[32]
       + (-1.1853009346526489)*TT_Control_DW.TTController_DSTATE[33]
       + (0.29187341611018253)*TT_Control_DW.TTController_DSTATE[34]
       + (0.27365385151055438)*TT_Control_DW.TTController_DSTATE[35];
-    rtb_TTController[8] += (0.65860373533989458)*rtb_Sum1[8];
-    rtb_TTController[9] = (-0.25475982044084683)*
+    TT_Control_Y.TT_cmd[8] += (0.65860373533989458)*rtb_Sum1[8];
+    TT_Control_Y.TT_cmd[9] = (-0.25475982044084683)*
       TT_Control_DW.TTController_DSTATE[36]
       + (-1.1853009346526489)*TT_Control_DW.TTController_DSTATE[37]
       + (0.29187341611018253)*TT_Control_DW.TTController_DSTATE[38]
       + (0.27365385151055438)*TT_Control_DW.TTController_DSTATE[39];
-    rtb_TTController[9] += (0.65860373533989458)*rtb_Sum1[9];
-    rtb_TTController[10] = (-0.25475982044084683)*
+    TT_Control_Y.TT_cmd[9] += (0.65860373533989458)*rtb_Sum1[9];
+    TT_Control_Y.TT_cmd[10] = (-0.25475982044084683)*
       TT_Control_DW.TTController_DSTATE[40]
       + (-1.1853009346526489)*TT_Control_DW.TTController_DSTATE[41]
       + (0.29187341611018253)*TT_Control_DW.TTController_DSTATE[42]
       + (0.27365385151055438)*TT_Control_DW.TTController_DSTATE[43];
-    rtb_TTController[10] += (0.65860373533989458)*rtb_Sum1[10];
-    rtb_TTController[11] = (-0.25475982044084683)*
+    TT_Control_Y.TT_cmd[10] += (0.65860373533989458)*rtb_Sum1[10];
+    TT_Control_Y.TT_cmd[11] = (-0.25475982044084683)*
       TT_Control_DW.TTController_DSTATE[44]
       + (-1.1853009346526489)*TT_Control_DW.TTController_DSTATE[45]
       + (0.29187341611018253)*TT_Control_DW.TTController_DSTATE[46]
       + (0.27365385151055438)*TT_Control_DW.TTController_DSTATE[47];
-    rtb_TTController[11] += (0.65860373533989458)*rtb_Sum1[11];
-    rtb_TTController[12] = (-0.25475982044084683)*
+    TT_Control_Y.TT_cmd[11] += (0.65860373533989458)*rtb_Sum1[11];
+    TT_Control_Y.TT_cmd[12] = (-0.25475982044084683)*
       TT_Control_DW.TTController_DSTATE[48]
       + (-1.1853009346526489)*TT_Control_DW.TTController_DSTATE[49]
       + (0.29187341611018253)*TT_Control_DW.TTController_DSTATE[50]
       + (0.27365385151055438)*TT_Control_DW.TTController_DSTATE[51];
-    rtb_TTController[12] += (0.65860373533989458)*rtb_Sum1[12];
-    rtb_TTController[13] = (-0.25475982044084683)*
+    TT_Control_Y.TT_cmd[12] += (0.65860373533989458)*rtb_Sum1[12];
+    TT_Control_Y.TT_cmd[13] = (-0.25475982044084683)*
       TT_Control_DW.TTController_DSTATE[52]
       + (-1.1853009346526489)*TT_Control_DW.TTController_DSTATE[53]
       + (0.29187341611018253)*TT_Control_DW.TTController_DSTATE[54]
       + (0.27365385151055438)*TT_Control_DW.TTController_DSTATE[55];
-    rtb_TTController[13] += (0.65860373533989458)*rtb_Sum1[13];
+    TT_Control_Y.TT_cmd[13] += (0.65860373533989458)*rtb_Sum1[13];
   }
 
-  /* Outport: '<Root>/PZT_cmd' incorporates:
-   *  Gain: '<S1>/TT2PZT'
+  /* Update for DiscreteStateSpace: '<S1>/TT Controller' incorporates:
+   *  Outport: '<Root>/TT_cmd'
    */
-  for (i = 0; i < 21; i++) {
-    TT_Control_Y.PZT_cmd[i] = 0.0;
-    tmp = 0;
-    for (i_0 = 0; i_0 < 14; i_0++) {
-      TT_Control_Y.PZT_cmd[i] += TT_Control_ConstP.TT2PZT_Gain[tmp + i] *
-        rtb_TTController[i_0];
-      tmp += 21;
-    }
-  }
-
-  /* End of Outport: '<Root>/PZT_cmd' */
-
-  /* Update for DiscreteStateSpace: '<S1>/TT Controller' */
   {
     real_T xnew[56];
     xnew[0] = (1.0000000000000002)*TT_Control_DW.TTController_DSTATE[0];
@@ -372,8 +358,8 @@ void TT_Control_initialize(void)
   (void)memset(&TT_Control_U, 0, sizeof(ExtU_TT_Control_T));
 
   /* external outputs */
-  (void) memset(&TT_Control_Y.PZT_cmd[0], 0,
-                21U*sizeof(real_T));
+  (void) memset(&TT_Control_Y.TT_cmd[0], 0,
+                14U*sizeof(real_T));
 }
 
 /* Model terminate function */

@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'M2_PZT_Control'.
  *
- * Model version                  : 1.1033
+ * Model version                  : 1.1160
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Mar 16 13:49:23 2022
+ * C/C++ source code generated on : Fri Apr  1 18:06:26 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -157,7 +157,6 @@ extern RT_MODEL_M2_PZT_Control_T *const M2_PZT_Control_M;
  * Block '<S17>/RTout' : Eliminated since input and output rates are identical
  * Block '<S18>/RTin' : Eliminated since input and output rates are identical
  * Block '<S18>/RTout' : Eliminated since input and output rates are identical
- * Block '<S1>/m2PZT_en' : Eliminated nontunable gain of 1
  */
 
 /*-

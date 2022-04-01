@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'M2_POS_Control'.
  *
- * Model version                  : 1.1023
+ * Model version                  : 1.1160
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Tue Mar 15 15:30:19 2022
+ * C/C++ source code generated on : Fri Apr  1 18:04:54 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -40,11 +40,6 @@ typedef struct {
 
 /* Constant parameters (default storage) */
 typedef struct {
-  /* Expression: m2pos.Km2p_dec
-   * Referenced by: '<S1>/Gain'
-   */
-  real_T Gain_Gain[1764];
-
   /* Expression: kron(eye(42),[1;-1])
    * Referenced by: '<S1>/kron(eye(42),[1;-1])'
    */
@@ -86,12 +81,6 @@ extern void M2_POS_Control_terminate(void);
 
 /* Real-time Model object */
 extern RT_MODEL_M2_POS_Control_T *const M2_POS_Control_M;
-
-/*-
- * These blocks were eliminated from the model due to optimizations:
- *
- * Block '<S1>/m2_pos_en' : Eliminated nontunable gain of 1
- */
 
 /*-
  * The generated code includes comments that allow you to trace directly

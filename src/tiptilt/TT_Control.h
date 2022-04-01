@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'TT_Control'.
  *
- * Model version                  : 1.1033
+ * Model version                  : 1.1157
  * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Wed Mar 16 13:45:10 2022
+ * C/C++ source code generated on : Fri Apr  1 17:58:04 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -38,14 +38,6 @@ typedef struct {
   real_T TTController_DSTATE[56];      /* '<S1>/TT Controller' */
 } DW_TT_Control_T;
 
-/* Constant parameters (default storage) */
-typedef struct {
-  /* Expression: tt7.TT2PZT
-   * Referenced by: '<S1>/TT2PZT'
-   */
-  real_T TT2PZT_Gain[294];
-} ConstP_TT_Control_T;
-
 /* External inputs (root inport signals with default storage) */
 typedef struct {
   real_T TT_SP[14];                    /* '<Root>/TT_SP' */
@@ -54,7 +46,7 @@ typedef struct {
 
 /* External outputs (root outports fed by signals with default storage) */
 typedef struct {
-  real_T PZT_cmd[21];                  /* '<Root>/PZT_cmd' */
+  real_T TT_cmd[14];                   /* '<Root>/TT_cmd' */
 } ExtY_TT_Control_T;
 
 /* Real-time Model Data Structure */
@@ -71,9 +63,6 @@ extern ExtU_TT_Control_T TT_Control_U;
 /* External outputs (root outports fed by signals with default storage) */
 extern ExtY_TT_Control_T TT_Control_Y;
 
-/* Constant parameters (default storage) */
-extern const ConstP_TT_Control_T TT_Control_ConstP;
-
 /* Model entry point functions */
 extern void TT_Control_initialize(void);
 extern void TT_Control_step(void);
@@ -81,12 +70,6 @@ extern void TT_Control_terminate(void);
 
 /* Real-time Model object */
 extern RT_MODEL_TT_Control_T *const TT_Control_M;
-
-/*-
- * These blocks were eliminated from the model due to optimizations:
- *
- * Block '<S1>/m2TT_en' : Eliminated nontunable gain of 1
- */
 
 /*-
  * The generated code includes comments that allow you to trace directly
