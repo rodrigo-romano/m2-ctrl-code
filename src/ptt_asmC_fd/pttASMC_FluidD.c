@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'pttASMC_FluidD'.
  *
- * Model version                  : 5.59
+ * Model version                  : 5.75
  * Simulink Coder version         : 9.4 (R2020b) 29-Jul-2020
- * C/C++ source code generated on : Wed Aug 31 15:18:43 2022
+ * C/C++ source code generated on : Fri Sep  2 10:56:05 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -34,17 +34,18 @@ void pttASMC_FluidD_step(void)
 {
   /* local block i/o variables */
   real_T rtb_Sum1[21];
-  real_T rtb_Add[42];
+  real_T rtb_Internal[42];
   real_T rtb_Ucpfs[21];
   real_T rtb_FzMxy_2_6F[84];
   real_T rtb_FzMxydamp_2_6F[84];
+  real_T rtb_Add[42];
   real_T rtb_TSamp[21];
   real_T rtb_gain1[21];
   real_T tmp[21];
-  real_T rtb_TSamp_l;
+  real_T tmp_0;
   int32_T i;
   int32_T i_0;
-  int32_T tmp_0;
+  int32_T tmp_1;
 
   /* DiscreteStateSpace: '<S3>/Internal' incorporates:
    *  Inport: '<Root>/Rrbfs'
@@ -56,7 +57,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow0[0];
       const real_T *pC0 = pttASMC_FluidD_ConstP.Internal_C;
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y0 = &rtb_Add[0];
+      real_T *y0 = &rtb_Internal[0];
       int_T numNonZero = 5;
       *y0 = (*pC0++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -64,7 +65,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[0] += (1.393702265659542E+7)*pttASMC_FluidD_U.Rrbfs[0];
+    rtb_Internal[0] += (1.393702265659542E+7)*pttASMC_FluidD_U.Rrbfs[0];
 
     {
       static const int_T colCidxRow1[6] = { 6, 7, 8, 9, 10, 11 };
@@ -72,7 +73,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow1[0];
       const real_T *pC6 = &pttASMC_FluidD_ConstP.Internal_C[6];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y1 = &rtb_Add[1];
+      real_T *y1 = &rtb_Internal[1];
       int_T numNonZero = 5;
       *y1 = (*pC6++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -80,7 +81,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[1] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[1];
+    rtb_Internal[1] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[1];
 
     {
       static const int_T colCidxRow2[6] = { 12, 13, 14, 15, 16, 17 };
@@ -88,7 +89,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow2[0];
       const real_T *pC12 = &pttASMC_FluidD_ConstP.Internal_C[12];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y2 = &rtb_Add[2];
+      real_T *y2 = &rtb_Internal[2];
       int_T numNonZero = 5;
       *y2 = (*pC12++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -96,7 +97,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[2] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[2];
+    rtb_Internal[2] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[2];
 
     {
       static const int_T colCidxRow3[6] = { 18, 19, 20, 21, 22, 23 };
@@ -104,7 +105,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow3[0];
       const real_T *pC18 = &pttASMC_FluidD_ConstP.Internal_C[18];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y3 = &rtb_Add[3];
+      real_T *y3 = &rtb_Internal[3];
       int_T numNonZero = 5;
       *y3 = (*pC18++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -112,7 +113,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[3] += (1.393702265659542E+7)*pttASMC_FluidD_U.Rrbfs[3];
+    rtb_Internal[3] += (1.393702265659542E+7)*pttASMC_FluidD_U.Rrbfs[3];
 
     {
       static const int_T colCidxRow4[6] = { 24, 25, 26, 27, 28, 29 };
@@ -120,7 +121,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow4[0];
       const real_T *pC24 = &pttASMC_FluidD_ConstP.Internal_C[24];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y4 = &rtb_Add[4];
+      real_T *y4 = &rtb_Internal[4];
       int_T numNonZero = 5;
       *y4 = (*pC24++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -128,7 +129,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[4] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[4];
+    rtb_Internal[4] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[4];
 
     {
       static const int_T colCidxRow5[6] = { 30, 31, 32, 33, 34, 35 };
@@ -136,7 +137,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow5[0];
       const real_T *pC30 = &pttASMC_FluidD_ConstP.Internal_C[30];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y5 = &rtb_Add[5];
+      real_T *y5 = &rtb_Internal[5];
       int_T numNonZero = 5;
       *y5 = (*pC30++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -144,7 +145,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[5] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[5];
+    rtb_Internal[5] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[5];
 
     {
       static const int_T colCidxRow6[6] = { 36, 37, 38, 39, 40, 41 };
@@ -152,7 +153,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow6[0];
       const real_T *pC36 = &pttASMC_FluidD_ConstP.Internal_C[36];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y6 = &rtb_Add[6];
+      real_T *y6 = &rtb_Internal[6];
       int_T numNonZero = 5;
       *y6 = (*pC36++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -160,7 +161,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[6] += (1.393702265659542E+7)*pttASMC_FluidD_U.Rrbfs[6];
+    rtb_Internal[6] += (1.393702265659542E+7)*pttASMC_FluidD_U.Rrbfs[6];
 
     {
       static const int_T colCidxRow7[6] = { 42, 43, 44, 45, 46, 47 };
@@ -168,7 +169,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow7[0];
       const real_T *pC42 = &pttASMC_FluidD_ConstP.Internal_C[42];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y7 = &rtb_Add[7];
+      real_T *y7 = &rtb_Internal[7];
       int_T numNonZero = 5;
       *y7 = (*pC42++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -176,7 +177,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[7] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[7];
+    rtb_Internal[7] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[7];
 
     {
       static const int_T colCidxRow8[6] = { 48, 49, 50, 51, 52, 53 };
@@ -184,7 +185,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow8[0];
       const real_T *pC48 = &pttASMC_FluidD_ConstP.Internal_C[48];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y8 = &rtb_Add[8];
+      real_T *y8 = &rtb_Internal[8];
       int_T numNonZero = 5;
       *y8 = (*pC48++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -192,7 +193,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[8] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[8];
+    rtb_Internal[8] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[8];
 
     {
       static const int_T colCidxRow9[6] = { 54, 55, 56, 57, 58, 59 };
@@ -200,7 +201,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow9[0];
       const real_T *pC54 = &pttASMC_FluidD_ConstP.Internal_C[54];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y9 = &rtb_Add[9];
+      real_T *y9 = &rtb_Internal[9];
       int_T numNonZero = 5;
       *y9 = (*pC54++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -208,7 +209,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[9] += (1.393702265659542E+7)*pttASMC_FluidD_U.Rrbfs[9];
+    rtb_Internal[9] += (1.393702265659542E+7)*pttASMC_FluidD_U.Rrbfs[9];
 
     {
       static const int_T colCidxRow10[6] = { 60, 61, 62, 63, 64, 65 };
@@ -216,7 +217,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow10[0];
       const real_T *pC60 = &pttASMC_FluidD_ConstP.Internal_C[60];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y10 = &rtb_Add[10];
+      real_T *y10 = &rtb_Internal[10];
       int_T numNonZero = 5;
       *y10 = (*pC60++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -224,7 +225,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[10] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[10];
+    rtb_Internal[10] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[10];
 
     {
       static const int_T colCidxRow11[6] = { 66, 67, 68, 69, 70, 71 };
@@ -232,7 +233,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow11[0];
       const real_T *pC66 = &pttASMC_FluidD_ConstP.Internal_C[66];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y11 = &rtb_Add[11];
+      real_T *y11 = &rtb_Internal[11];
       int_T numNonZero = 5;
       *y11 = (*pC66++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -240,7 +241,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[11] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[11];
+    rtb_Internal[11] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[11];
 
     {
       static const int_T colCidxRow12[6] = { 72, 73, 74, 75, 76, 77 };
@@ -248,7 +249,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow12[0];
       const real_T *pC72 = &pttASMC_FluidD_ConstP.Internal_C[72];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y12 = &rtb_Add[12];
+      real_T *y12 = &rtb_Internal[12];
       int_T numNonZero = 5;
       *y12 = (*pC72++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -256,7 +257,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[12] += (1.393702265659542E+7)*pttASMC_FluidD_U.Rrbfs[12];
+    rtb_Internal[12] += (1.393702265659542E+7)*pttASMC_FluidD_U.Rrbfs[12];
 
     {
       static const int_T colCidxRow13[6] = { 78, 79, 80, 81, 82, 83 };
@@ -264,7 +265,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow13[0];
       const real_T *pC78 = &pttASMC_FluidD_ConstP.Internal_C[78];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y13 = &rtb_Add[13];
+      real_T *y13 = &rtb_Internal[13];
       int_T numNonZero = 5;
       *y13 = (*pC78++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -272,7 +273,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[13] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[13];
+    rtb_Internal[13] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[13];
 
     {
       static const int_T colCidxRow14[6] = { 84, 85, 86, 87, 88, 89 };
@@ -280,7 +281,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow14[0];
       const real_T *pC84 = &pttASMC_FluidD_ConstP.Internal_C[84];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y14 = &rtb_Add[14];
+      real_T *y14 = &rtb_Internal[14];
       int_T numNonZero = 5;
       *y14 = (*pC84++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -288,7 +289,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[14] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[14];
+    rtb_Internal[14] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[14];
 
     {
       static const int_T colCidxRow15[6] = { 90, 91, 92, 93, 94, 95 };
@@ -296,7 +297,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow15[0];
       const real_T *pC90 = &pttASMC_FluidD_ConstP.Internal_C[90];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y15 = &rtb_Add[15];
+      real_T *y15 = &rtb_Internal[15];
       int_T numNonZero = 5;
       *y15 = (*pC90++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -304,7 +305,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[15] += (1.393702265659542E+7)*pttASMC_FluidD_U.Rrbfs[15];
+    rtb_Internal[15] += (1.393702265659542E+7)*pttASMC_FluidD_U.Rrbfs[15];
 
     {
       static const int_T colCidxRow16[6] = { 96, 97, 98, 99, 100, 101 };
@@ -312,7 +313,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow16[0];
       const real_T *pC96 = &pttASMC_FluidD_ConstP.Internal_C[96];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y16 = &rtb_Add[16];
+      real_T *y16 = &rtb_Internal[16];
       int_T numNonZero = 5;
       *y16 = (*pC96++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -320,7 +321,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[16] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[16];
+    rtb_Internal[16] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[16];
 
     {
       static const int_T colCidxRow17[6] = { 102, 103, 104, 105, 106, 107 };
@@ -328,7 +329,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow17[0];
       const real_T *pC102 = &pttASMC_FluidD_ConstP.Internal_C[102];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y17 = &rtb_Add[17];
+      real_T *y17 = &rtb_Internal[17];
       int_T numNonZero = 5;
       *y17 = (*pC102++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -336,7 +337,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[17] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[17];
+    rtb_Internal[17] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[17];
 
     {
       static const int_T colCidxRow18[6] = { 108, 109, 110, 111, 112, 113 };
@@ -344,7 +345,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow18[0];
       const real_T *pC108 = &pttASMC_FluidD_ConstP.Internal_C[108];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y18 = &rtb_Add[18];
+      real_T *y18 = &rtb_Internal[18];
       int_T numNonZero = 5;
       *y18 = (*pC108++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -352,7 +353,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[18] += (1.393702265659542E+7)*pttASMC_FluidD_U.Rrbfs[18];
+    rtb_Internal[18] += (1.393702265659542E+7)*pttASMC_FluidD_U.Rrbfs[18];
 
     {
       static const int_T colCidxRow19[6] = { 114, 115, 116, 117, 118, 119 };
@@ -360,7 +361,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow19[0];
       const real_T *pC114 = &pttASMC_FluidD_ConstP.Internal_C[114];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y19 = &rtb_Add[19];
+      real_T *y19 = &rtb_Internal[19];
       int_T numNonZero = 5;
       *y19 = (*pC114++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -368,7 +369,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[19] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[19];
+    rtb_Internal[19] += (974394.034385261)*pttASMC_FluidD_U.Rrbfs[19];
 
     {
       static const int_T colCidxRow20[6] = { 120, 121, 122, 123, 124, 125 };
@@ -376,7 +377,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow20[0];
       const real_T *pC120 = &pttASMC_FluidD_ConstP.Internal_C[120];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y20 = &rtb_Add[20];
+      real_T *y20 = &rtb_Internal[20];
       int_T numNonZero = 5;
       *y20 = (*pC120++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -384,7 +385,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[20] += (974394.03438526159)*pttASMC_FluidD_U.Rrbfs[20];
+    rtb_Internal[20] += (974394.03438526159)*pttASMC_FluidD_U.Rrbfs[20];
 
     {
       static const int_T colCidxRow21[6] = { 0, 1, 2, 3, 4, 5 };
@@ -392,7 +393,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow21[0];
       const real_T *pC126 = &pttASMC_FluidD_ConstP.Internal_C[126];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y21 = &rtb_Add[21];
+      real_T *y21 = &rtb_Internal[21];
       int_T numNonZero = 5;
       *y21 = (*pC126++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -400,7 +401,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[21] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[0];
+    rtb_Internal[21] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[0];
 
     {
       static const int_T colCidxRow22[6] = { 6, 7, 8, 9, 10, 11 };
@@ -408,7 +409,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow22[0];
       const real_T *pC132 = &pttASMC_FluidD_ConstP.Internal_C[132];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y22 = &rtb_Add[22];
+      real_T *y22 = &rtb_Internal[22];
       int_T numNonZero = 5;
       *y22 = (*pC132++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -416,7 +417,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[22] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[1];
+    rtb_Internal[22] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[1];
 
     {
       static const int_T colCidxRow23[6] = { 12, 13, 14, 15, 16, 17 };
@@ -424,7 +425,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow23[0];
       const real_T *pC138 = &pttASMC_FluidD_ConstP.Internal_C[138];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y23 = &rtb_Add[23];
+      real_T *y23 = &rtb_Internal[23];
       int_T numNonZero = 5;
       *y23 = (*pC138++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -432,7 +433,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[23] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[2];
+    rtb_Internal[23] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[2];
 
     {
       static const int_T colCidxRow24[6] = { 18, 19, 20, 21, 22, 23 };
@@ -440,7 +441,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow24[0];
       const real_T *pC144 = &pttASMC_FluidD_ConstP.Internal_C[144];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y24 = &rtb_Add[24];
+      real_T *y24 = &rtb_Internal[24];
       int_T numNonZero = 5;
       *y24 = (*pC144++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -448,7 +449,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[24] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[3];
+    rtb_Internal[24] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[3];
 
     {
       static const int_T colCidxRow25[6] = { 24, 25, 26, 27, 28, 29 };
@@ -456,7 +457,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow25[0];
       const real_T *pC150 = &pttASMC_FluidD_ConstP.Internal_C[150];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y25 = &rtb_Add[25];
+      real_T *y25 = &rtb_Internal[25];
       int_T numNonZero = 5;
       *y25 = (*pC150++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -464,7 +465,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[25] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[4];
+    rtb_Internal[25] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[4];
 
     {
       static const int_T colCidxRow26[6] = { 30, 31, 32, 33, 34, 35 };
@@ -472,7 +473,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow26[0];
       const real_T *pC156 = &pttASMC_FluidD_ConstP.Internal_C[156];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y26 = &rtb_Add[26];
+      real_T *y26 = &rtb_Internal[26];
       int_T numNonZero = 5;
       *y26 = (*pC156++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -480,7 +481,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[26] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[5];
+    rtb_Internal[26] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[5];
 
     {
       static const int_T colCidxRow27[6] = { 36, 37, 38, 39, 40, 41 };
@@ -488,7 +489,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow27[0];
       const real_T *pC162 = &pttASMC_FluidD_ConstP.Internal_C[162];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y27 = &rtb_Add[27];
+      real_T *y27 = &rtb_Internal[27];
       int_T numNonZero = 5;
       *y27 = (*pC162++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -496,7 +497,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[27] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[6];
+    rtb_Internal[27] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[6];
 
     {
       static const int_T colCidxRow28[6] = { 42, 43, 44, 45, 46, 47 };
@@ -504,7 +505,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow28[0];
       const real_T *pC168 = &pttASMC_FluidD_ConstP.Internal_C[168];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y28 = &rtb_Add[28];
+      real_T *y28 = &rtb_Internal[28];
       int_T numNonZero = 5;
       *y28 = (*pC168++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -512,7 +513,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[28] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[7];
+    rtb_Internal[28] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[7];
 
     {
       static const int_T colCidxRow29[6] = { 48, 49, 50, 51, 52, 53 };
@@ -520,7 +521,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow29[0];
       const real_T *pC174 = &pttASMC_FluidD_ConstP.Internal_C[174];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y29 = &rtb_Add[29];
+      real_T *y29 = &rtb_Internal[29];
       int_T numNonZero = 5;
       *y29 = (*pC174++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -528,7 +529,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[29] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[8];
+    rtb_Internal[29] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[8];
 
     {
       static const int_T colCidxRow30[6] = { 54, 55, 56, 57, 58, 59 };
@@ -536,7 +537,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow30[0];
       const real_T *pC180 = &pttASMC_FluidD_ConstP.Internal_C[180];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y30 = &rtb_Add[30];
+      real_T *y30 = &rtb_Internal[30];
       int_T numNonZero = 5;
       *y30 = (*pC180++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -544,7 +545,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[30] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[9];
+    rtb_Internal[30] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[9];
 
     {
       static const int_T colCidxRow31[6] = { 60, 61, 62, 63, 64, 65 };
@@ -552,7 +553,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow31[0];
       const real_T *pC186 = &pttASMC_FluidD_ConstP.Internal_C[186];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y31 = &rtb_Add[31];
+      real_T *y31 = &rtb_Internal[31];
       int_T numNonZero = 5;
       *y31 = (*pC186++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -560,7 +561,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[31] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[10];
+    rtb_Internal[31] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[10];
 
     {
       static const int_T colCidxRow32[6] = { 66, 67, 68, 69, 70, 71 };
@@ -568,7 +569,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow32[0];
       const real_T *pC192 = &pttASMC_FluidD_ConstP.Internal_C[192];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y32 = &rtb_Add[32];
+      real_T *y32 = &rtb_Internal[32];
       int_T numNonZero = 5;
       *y32 = (*pC192++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -576,7 +577,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[32] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[11];
+    rtb_Internal[32] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[11];
 
     {
       static const int_T colCidxRow33[6] = { 72, 73, 74, 75, 76, 77 };
@@ -584,7 +585,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow33[0];
       const real_T *pC198 = &pttASMC_FluidD_ConstP.Internal_C[198];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y33 = &rtb_Add[33];
+      real_T *y33 = &rtb_Internal[33];
       int_T numNonZero = 5;
       *y33 = (*pC198++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -592,7 +593,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[33] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[12];
+    rtb_Internal[33] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[12];
 
     {
       static const int_T colCidxRow34[6] = { 78, 79, 80, 81, 82, 83 };
@@ -600,7 +601,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow34[0];
       const real_T *pC204 = &pttASMC_FluidD_ConstP.Internal_C[204];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y34 = &rtb_Add[34];
+      real_T *y34 = &rtb_Internal[34];
       int_T numNonZero = 5;
       *y34 = (*pC204++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -608,7 +609,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[34] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[13];
+    rtb_Internal[34] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[13];
 
     {
       static const int_T colCidxRow35[6] = { 84, 85, 86, 87, 88, 89 };
@@ -616,7 +617,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow35[0];
       const real_T *pC210 = &pttASMC_FluidD_ConstP.Internal_C[210];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y35 = &rtb_Add[35];
+      real_T *y35 = &rtb_Internal[35];
       int_T numNonZero = 5;
       *y35 = (*pC210++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -624,7 +625,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[35] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[14];
+    rtb_Internal[35] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[14];
 
     {
       static const int_T colCidxRow36[6] = { 90, 91, 92, 93, 94, 95 };
@@ -632,7 +633,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow36[0];
       const real_T *pC216 = &pttASMC_FluidD_ConstP.Internal_C[216];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y36 = &rtb_Add[36];
+      real_T *y36 = &rtb_Internal[36];
       int_T numNonZero = 5;
       *y36 = (*pC216++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -640,7 +641,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[36] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[15];
+    rtb_Internal[36] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[15];
 
     {
       static const int_T colCidxRow37[6] = { 96, 97, 98, 99, 100, 101 };
@@ -648,7 +649,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow37[0];
       const real_T *pC222 = &pttASMC_FluidD_ConstP.Internal_C[222];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y37 = &rtb_Add[37];
+      real_T *y37 = &rtb_Internal[37];
       int_T numNonZero = 5;
       *y37 = (*pC222++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -656,7 +657,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[37] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[16];
+    rtb_Internal[37] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[16];
 
     {
       static const int_T colCidxRow38[6] = { 102, 103, 104, 105, 106, 107 };
@@ -664,7 +665,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow38[0];
       const real_T *pC228 = &pttASMC_FluidD_ConstP.Internal_C[228];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y38 = &rtb_Add[38];
+      real_T *y38 = &rtb_Internal[38];
       int_T numNonZero = 5;
       *y38 = (*pC228++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -672,7 +673,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[38] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[17];
+    rtb_Internal[38] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[17];
 
     {
       static const int_T colCidxRow39[6] = { 108, 109, 110, 111, 112, 113 };
@@ -680,7 +681,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow39[0];
       const real_T *pC234 = &pttASMC_FluidD_ConstP.Internal_C[234];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y39 = &rtb_Add[39];
+      real_T *y39 = &rtb_Internal[39];
       int_T numNonZero = 5;
       *y39 = (*pC234++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -688,7 +689,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[39] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[18];
+    rtb_Internal[39] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[18];
 
     {
       static const int_T colCidxRow40[6] = { 114, 115, 116, 117, 118, 119 };
@@ -696,7 +697,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow40[0];
       const real_T *pC240 = &pttASMC_FluidD_ConstP.Internal_C[240];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y40 = &rtb_Add[40];
+      real_T *y40 = &rtb_Internal[40];
       int_T numNonZero = 5;
       *y40 = (*pC240++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -704,7 +705,7 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[40] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[19];
+    rtb_Internal[40] += (0.0060642155112588048)*pttASMC_FluidD_U.Rrbfs[19];
 
     {
       static const int_T colCidxRow41[6] = { 120, 121, 122, 123, 124, 125 };
@@ -712,7 +713,7 @@ void pttASMC_FluidD_step(void)
       const int_T *pCidx = &colCidxRow41[0];
       const real_T *pC246 = &pttASMC_FluidD_ConstP.Internal_C[246];
       const real_T *xd = &pttASMC_FluidD_DW.Internal_DSTATE[0];
-      real_T *y41 = &rtb_Add[41];
+      real_T *y41 = &rtb_Internal[41];
       int_T numNonZero = 5;
       *y41 = (*pC246++) * xd[*pCidx++];
       while (numNonZero--) {
@@ -720,15 +721,41 @@ void pttASMC_FluidD_step(void)
       }
     }
 
-    rtb_Add[41] += (0.0060642155112588074)*pttASMC_FluidD_U.Rrbfs[20];
+    rtb_Internal[41] += (0.0060642155112588074)*pttASMC_FluidD_U.Rrbfs[20];
   }
 
-  for (i = 0; i < 21; i++) {
-    /* Sum: '<S1>/Sum1' incorporates:
-     *  Inport: '<Root>/Yrbfs'
-     */
-    rtb_Sum1[i] = rtb_Add[i + 21] - pttASMC_FluidD_U.m[i];
+  /* Sum: '<S1>/Add1' incorporates:
+   *  Inport: '<Root>/ASM_FS_6D'
+   *  Inport: '<Root>/ASM_RB_6D'
+   */
+  for (i = 0; i < 42; i++) {
+    rtb_Add[i] = pttASMC_FluidD_U.ASM_RB_6D[i] - pttASMC_FluidD_U.ASM_FS_6D[i];
   }
+
+  /* End of Sum: '<S1>/Add1' */
+
+  /* Sum: '<S1>/Sum1' */
+  rtb_Sum1[0] = rtb_Internal[21] - rtb_Add[2];
+  rtb_Sum1[3] = rtb_Internal[24] - rtb_Add[8];
+  rtb_Sum1[6] = rtb_Internal[27] - rtb_Add[14];
+  rtb_Sum1[9] = rtb_Internal[30] - rtb_Add[20];
+  rtb_Sum1[12] = rtb_Internal[33] - rtb_Add[26];
+  rtb_Sum1[15] = rtb_Internal[36] - rtb_Add[32];
+  rtb_Sum1[18] = rtb_Internal[39] - rtb_Add[38];
+  rtb_Sum1[1] = rtb_Internal[22] - rtb_Add[3];
+  rtb_Sum1[4] = rtb_Internal[25] - rtb_Add[9];
+  rtb_Sum1[7] = rtb_Internal[28] - rtb_Add[15];
+  rtb_Sum1[10] = rtb_Internal[31] - rtb_Add[21];
+  rtb_Sum1[13] = rtb_Internal[34] - rtb_Add[27];
+  rtb_Sum1[16] = rtb_Internal[37] - rtb_Add[33];
+  rtb_Sum1[19] = rtb_Internal[40] - rtb_Add[39];
+  rtb_Sum1[2] = rtb_Internal[23] - rtb_Add[4];
+  rtb_Sum1[5] = rtb_Internal[26] - rtb_Add[10];
+  rtb_Sum1[8] = rtb_Internal[29] - rtb_Add[16];
+  rtb_Sum1[11] = rtb_Internal[32] - rtb_Add[22];
+  rtb_Sum1[14] = rtb_Internal[35] - rtb_Add[28];
+  rtb_Sum1[17] = rtb_Internal[38] - rtb_Add[34];
+  rtb_Sum1[20] = rtb_Internal[41] - rtb_Add[40];
 
   /* DiscreteStateSpace: '<S4>/Internal' */
   {
@@ -776,52 +803,61 @@ void pttASMC_FluidD_step(void)
     rtb_Ucpfs[20] += (3.30491475E+6)*rtb_Sum1[20];
   }
 
+  /* SampleTimeMath: '<S2>/TSamp'
+   *
+   * About '<S2>/TSamp':
+   *  y = u * K where K = 1 / ( w * Ts )
+   */
+  rtb_TSamp[0] = rtb_Add[2] * 8000.0;
+  rtb_TSamp[3] = rtb_Add[8] * 8000.0;
+  rtb_TSamp[6] = rtb_Add[14] * 8000.0;
+  rtb_TSamp[9] = rtb_Add[20] * 8000.0;
+  rtb_TSamp[12] = rtb_Add[26] * 8000.0;
+  rtb_TSamp[15] = rtb_Add[32] * 8000.0;
+  rtb_TSamp[18] = rtb_Add[38] * 8000.0;
+  rtb_TSamp[1] = rtb_Add[3] * 8000.0;
+  rtb_TSamp[4] = rtb_Add[9] * 8000.0;
+  rtb_TSamp[7] = rtb_Add[15] * 8000.0;
+  rtb_TSamp[10] = rtb_Add[21] * 8000.0;
+  rtb_TSamp[13] = rtb_Add[27] * 8000.0;
+  rtb_TSamp[16] = rtb_Add[33] * 8000.0;
+  rtb_TSamp[19] = rtb_Add[39] * 8000.0;
+  rtb_TSamp[2] = rtb_Add[4] * 8000.0;
+  rtb_TSamp[5] = rtb_Add[10] * 8000.0;
+  rtb_TSamp[8] = rtb_Add[16] * 8000.0;
+  rtb_TSamp[11] = rtb_Add[22] * 8000.0;
+  rtb_TSamp[14] = rtb_Add[28] * 8000.0;
+  rtb_TSamp[17] = rtb_Add[34] * 8000.0;
+  rtb_TSamp[20] = rtb_Add[40] * 8000.0;
+
+  /* Sum: '<S2>/Diff' incorporates:
+   *  UnitDelay: '<S2>/UD'
+   *
+   * Block description for '<S2>/Diff':
+   *
+   *  Add in CPU
+   *
+   * Block description for '<S2>/UD':
+   *
+   *  Store in Global RAM
+   */
   for (i = 0; i < 21; i++) {
-    /* SampleTimeMath: '<S2>/TSamp' incorporates:
-     *  Inport: '<Root>/Yrbfs'
-     *
-     * About '<S2>/TSamp':
-     *  y = u * K where K = 1 / ( w * Ts )
-     */
-    rtb_TSamp_l = pttASMC_FluidD_U.m[i] * 8000.0;
-
-    /* Sum: '<S2>/Diff' incorporates:
-     *  SampleTimeMath: '<S2>/TSamp'
-     *  UnitDelay: '<S2>/UD'
-     *
-     * About '<S2>/TSamp':
-     *  y = u * K where K = 1 / ( w * Ts )
-     *
-     * Block description for '<S2>/Diff':
-     *
-     *  Add in CPU
-     *
-     * Block description for '<S2>/UD':
-     *
-     *  Store in Global RAM
-     */
-    rtb_gain1[i] = rtb_TSamp_l - pttASMC_FluidD_DW.UD_DSTATE[i];
-
-    /* SampleTimeMath: '<S2>/TSamp'
-     *
-     * About '<S2>/TSamp':
-     *  y = u * K where K = 1 / ( w * Ts )
-     */
-    rtb_TSamp[i] = rtb_TSamp_l;
+    rtb_gain1[i] = rtb_TSamp[i] - pttASMC_FluidD_DW.UD_DSTATE[i];
   }
 
+  /* End of Sum: '<S2>/Diff' */
   for (i = 0; i < 21; i++) {
     /* Sum: '<S1>/Sum3' incorporates:
      *  Gain: '<S1>/Kd'
      */
-    rtb_TSamp_l = 0.0;
-    tmp_0 = 0;
+    tmp_0 = 0.0;
+    tmp_1 = 0;
     for (i_0 = 0; i_0 < 21; i_0++) {
-      rtb_TSamp_l += pttASMC_FluidD_ConstP.Kd_Gain[tmp_0 + i] * rtb_gain1[i_0];
-      tmp_0 += 21;
+      tmp_0 += pttASMC_FluidD_ConstP.Kd_Gain[tmp_1 + i] * rtb_gain1[i_0];
+      tmp_1 += 21;
     }
 
-    rtb_Ucpfs[i] = (rtb_Add[i] + rtb_Ucpfs[i]) - rtb_TSamp_l;
+    rtb_Ucpfs[i] = (rtb_Internal[i] + rtb_Ucpfs[i]) - tmp_0;
 
     /* End of Sum: '<S1>/Sum3' */
   }
@@ -829,11 +865,11 @@ void pttASMC_FluidD_step(void)
   /* Gain: '<S1>/FzMxy_2_6F' */
   for (i = 0; i < 84; i++) {
     rtb_FzMxy_2_6F[i] = 0.0;
-    tmp_0 = 0;
+    tmp_1 = 0;
     for (i_0 = 0; i_0 < 21; i_0++) {
-      rtb_FzMxy_2_6F[i] += pttASMC_FluidD_ConstP.FzMxy_2_6F_Gain[tmp_0 + i] *
+      rtb_FzMxy_2_6F[i] += pttASMC_FluidD_ConstP.FzMxy_2_6F_Gain[tmp_1 + i] *
         rtb_Ucpfs[i_0];
-      tmp_0 += 84;
+      tmp_1 += 84;
     }
   }
 
@@ -852,10 +888,10 @@ void pttASMC_FluidD_step(void)
   /* Gain: '<S1>/Kfd' */
   for (i = 0; i < 21; i++) {
     tmp[i] = 0.0;
-    tmp_0 = 0;
+    tmp_1 = 0;
     for (i_0 = 0; i_0 < 21; i_0++) {
-      tmp[i] += pttASMC_FluidD_ConstP.Kfd_Gain[tmp_0 + i] * rtb_gain1[i_0];
-      tmp_0 += 21;
+      tmp[i] += pttASMC_FluidD_ConstP.Kfd_Gain[tmp_1 + i] * rtb_gain1[i_0];
+      tmp_1 += 21;
     }
   }
 
@@ -864,11 +900,11 @@ void pttASMC_FluidD_step(void)
   /* Gain: '<S1>/FzMxydamp_2_6F' */
   for (i = 0; i < 84; i++) {
     rtb_FzMxydamp_2_6F[i] = 0.0;
-    tmp_0 = 0;
+    tmp_1 = 0;
     for (i_0 = 0; i_0 < 21; i_0++) {
-      rtb_FzMxydamp_2_6F[i] += pttASMC_FluidD_ConstP.FzMxydamp_2_6F_Gain[tmp_0 +
+      rtb_FzMxydamp_2_6F[i] += pttASMC_FluidD_ConstP.FzMxydamp_2_6F_Gain[tmp_1 +
         i] * tmp[i_0];
-      tmp_0 += 84;
+      tmp_1 += 84;
     }
   }
 
@@ -877,15 +913,11 @@ void pttASMC_FluidD_step(void)
     /* Outport: '<Root>/Urb' */
     pttASMC_FluidD_Y.Urb[i] = rtb_FzMxydamp_2_6F[i + 42];
 
-    /* Sum: '<S1>/Add' incorporates:
-     *  Outport: '<Root>/Urb'
-     */
-    rtb_Add[i] = rtb_FzMxy_2_6F[i + 42] + rtb_FzMxydamp_2_6F[i];
-
     /* Outport: '<Root>/Ufs' incorporates:
      *  Outport: '<Root>/Urb'
+     *  Sum: '<S1>/Add'
      */
-    pttASMC_FluidD_Y.Ufs[i] = rtb_Add[i];
+    pttASMC_FluidD_Y.Ufs[i] = rtb_FzMxy_2_6F[i + 42] + rtb_FzMxydamp_2_6F[i];
   }
 
   /* Update for DiscreteStateSpace: '<S3>/Internal' incorporates:

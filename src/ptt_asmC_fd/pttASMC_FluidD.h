@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'pttASMC_FluidD'.
  *
- * Model version                  : 5.59
+ * Model version                  : 5.75
  * Simulink Coder version         : 9.4 (R2020b) 29-Jul-2020
- * C/C++ source code generated on : Wed Aug 31 15:18:43 2022
+ * C/C++ source code generated on : Fri Sep  2 10:56:05 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -76,7 +76,8 @@ typedef struct {
 /* External inputs (root inport signals with default storage) */
 typedef struct {
   real_T Rrbfs[21];                    /* '<Root>/Rrbfs' */
-  real_T m[21];                        /* '<Root>/Yrbfs' */
+  real_T ASM_FS_6D[42];                /* '<Root>/ASM_FS_6D' */
+  real_T ASM_RB_6D[42];                /* '<Root>/ASM_RB_6D' */
 } ExtU_pttASMC_FluidD_T;
 
 /* External outputs (root outports fed by signals with default storage) */
