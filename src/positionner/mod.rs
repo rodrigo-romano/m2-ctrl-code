@@ -8,9 +8,9 @@ r##"
  *
  * Code generated for Simulink model 'M2_POS_Control'.
  *
- * Model version                  : 5.59
+ * Model version                  : 5.76
  * Simulink Coder version         : 9.4 (R2020b) 29-Jul-2020
- * C/C++ source code generated on : Wed Aug 31 15:17:57 2022
+ * C/C++ source code generated on : Fri Sep  2 12:29:45 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -53,7 +53,7 @@ typedef struct {
 
 /* External inputs (root inport signals with default storage) */
 typedef struct {
-  real_T M2_pos_cmd;                   /* '<Root>/M2_pos_cmd' */
+  real_T M2_pos_cmd[42];               /* '<Root>/M2_pos_cmd' */
   real_T M2_pos_FB[84];                /* '<Root>/M2_pos_FB' */
 } ExtU_M2_POS_Control_T;
 

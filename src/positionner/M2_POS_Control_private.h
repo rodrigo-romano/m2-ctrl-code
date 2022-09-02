@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'M2_POS_Control'.
  *
- * Model version                  : 5.59
+ * Model version                  : 5.76
  * Simulink Coder version         : 9.4 (R2020b) 29-Jul-2020
- * C/C++ source code generated on : Wed Aug 31 15:17:57 2022
+ * C/C++ source code generated on : Fri Sep  2 12:29:45 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Linux 64)
