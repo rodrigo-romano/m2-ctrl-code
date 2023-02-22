@@ -72,14 +72,13 @@ Cpi_d = c2d(st.asm.fpi,Ts,c2d_opts);
 % Numerical differentiation
 Hpd_d = c2d(st.asm.fpd,Ts,c2d_opts);
 
+G_fb_fd = [-Cpi_d-st.asm.Kd*Hpd_d;-st.asm.Kfd*Hpd_d];
 
 %% ASM feedforward (FF) modal controller
 
 ModelFolder = fullfile(im.lfFolder,"20210611_1336_MT_mount_v202104_ASM_full_epsilon");
 
 FileName = fullfile(ModelFolder,"modal_state_space_model_2ndOrder_postproc_45m1_66m2Modes_.mat");
-% FileName = fullfile(ModelFolder,"modal_state_space_model_2ndOrder_postproc_45m1_66m2Modes.mat");
-% FileName = fullfile(ModelFolder,"modal_state_space_model_2ndOrder_postproc_15m1_3m2Modes.mat");
 if(~exist('FEM_IO','var') || 0)
     load(FileName,'FEM_IO','Phi','Phim','eigenfrequencies','proportionalDampingVec');
 end
@@ -113,8 +112,6 @@ end
 Ks = VC_modal_stiff;
 
 
-
-
 %% Load simulink model
 ModelFName = 'm2asm_2_rust';
 open(sprintf('%s.slx',ModelFName));
@@ -128,13 +125,21 @@ Km = st.asm.Km; Kb = st.asm.Kb;
 KsS1_66 = Ks{1}; KsS2_66 = Ks{2}; KsS3_66 = Ks{3};
 KsS4_66 = Ks{4}; KsS5_66 = Ks{5}; KsS6_66 = Ks{6}; KsS7_66 = Ks{7};
 
-
 save('../calib_dt/m2asm_ctrl_dt.mat',...
     'KsS1_66', 'KsS2_66', 'KsS3_66', 'KsS4_66',...
     'KsS5_66', 'KsS6_66', 'KsS7_66', 'Km', 'Kb');
 
+% Test/verification step data
+% Columns of preshapeBessel_step_y: [cmd_f, dot_cmd_f, ddot_cmd_f]
+[preshapeBessel_step_y,preshapeBessel_step_t] = step(flag_d);
+G_fb_fd = [-Cpi_d-st.asm.Kd*Hpd_d;-st.asm.Kfd*Hpd_d];
+% Columns of asm_fb_y:
+[asm_fb_y, asm_fb_t] = impulse(G_fb_fd);
 
-
+if (update_test_dt && ~exist('m2asm_tests','var'))
+    save('m2asm_tests','preshapeBessel_step_y','preshapeBessel_step_t',...
+        'asm_fb_y','asm_fb_t');
+end
 
 
 %% Clutter
