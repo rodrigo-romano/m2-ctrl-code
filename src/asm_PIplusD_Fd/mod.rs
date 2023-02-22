@@ -8,9 +8,9 @@ r##"
  *
  * Code generated for Simulink model 'ASM_PIplusD_Fd'.
  *
- * Model version                  : 5.36
+ * Model version                  : 5.43
  * Simulink Coder version         : 9.4 (R2020b) 29-Jul-2020
- * C/C++ source code generated on : Tue Feb 21 19:24:07 2023
+ * C/C++ source code generated on : Wed Feb 22 17:47:07 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -41,11 +41,12 @@ typedef struct {
 typedef struct {
   real_T asm_SP;                       /* '<Root>/asm_SP' */
   real_T asm_FB;                       /* '<Root>/asm_FB' */
+  real_T asm_FF;                       /* '<Root>/asm_FF' */
 } ExtU_ASM_PIplusD_Fd_T;
 
 /* External outputs (root outports fed by signals with default storage) */
 typedef struct {
-  real_T asm_Ufb;                      /* '<Root>/asm_Ufb' */
+  real_T asm_U;                        /* '<Root>/asm_U' */
   real_T asm_Fd;                       /* '<Root>/asm_Fd' */
 } ExtY_ASM_PIplusD_Fd_T;
 
