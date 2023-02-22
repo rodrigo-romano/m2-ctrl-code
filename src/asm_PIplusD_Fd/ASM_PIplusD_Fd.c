@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'ASM_PIplusD_Fd'.
  *
- * Model version                  : 5.36
+ * Model version                  : 5.43
  * Simulink Coder version         : 9.4 (R2020b) 29-Jul-2020
- * C/C++ source code generated on : Tue Feb 21 19:24:07 2023
+ * C/C++ source code generated on : Wed Feb 22 17:47:07 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -48,15 +48,17 @@ void ASM_PIplusD_Fd_step(RT_MODEL_ASM_PIplusD_Fd_T *const ASM_PIplusD_Fd_M,
     ASM_PIplusD_Fd_P.Numericaldifferentiation_NumCoef[1] *
     ASM_PIplusD_Fd_DW->Numericaldifferentiation_states;
 
-  /* Outport: '<Root>/asm_Ufb' incorporates:
+  /* Outport: '<Root>/asm_U' incorporates:
    *  DiscreteTransferFcn: '<S1>/ASM PI controller'
    *  Gain: '<S1>/Kd'
+   *  Inport: '<Root>/asm_FF'
    *  Sum: '<S1>/Sum3'
+   *  Sum: '<S1>/Sum4'
    */
-  ASM_PIplusD_Fd_Y->asm_Ufb = (ASM_PIplusD_Fd_P.ASMPIcontroller_NumCoef[0] *
+  ASM_PIplusD_Fd_Y->asm_U = ((ASM_PIplusD_Fd_P.ASMPIcontroller_NumCoef[0] *
     ASMPIcontroller_tmp + ASM_PIplusD_Fd_P.ASMPIcontroller_NumCoef[1] *
     ASM_PIplusD_Fd_DW->ASMPIcontroller_states) - ASM_PIplusD_Fd_P.Kd_Gain *
-    rtb_Numericaldifferentiation;
+    rtb_Numericaldifferentiation) + ASM_PIplusD_Fd_U->asm_FF;
 
   /* Outport: '<Root>/asm_Fd' incorporates:
    *  Gain: '<S1>/-Kfdamp'
