@@ -1,11 +1,11 @@
 /*
  * File: rtwtypes.h
  *
- * Code generated for Simulink model 'TT_Control'.
+ * Code generated for Simulink model 'ASM_preshapeBesselF'.
  *
- * Model version                  : 1.901
- * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Tue Aug 24 14:29:48 2021
+ * Model version                  : 5.39
+ * Simulink Coder version         : 9.4 (R2020b) 29-Jul-2020
+ * C/C++ source code generated on : Wed Feb 22 12:27:12 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -18,13 +18,13 @@
 
 /* Logical type definitions */
 #if (!defined(__cplusplus))
-#  ifndef false
-#   define false                       (0U)
-#  endif
+#ifndef false
+#define false                          (0U)
+#endif
 
-#  ifndef true
-#   define true                        (1U)
-#  endif
+#ifndef true
+#define true                           (1U)
+#endif
 #endif
 
 /*=======================================================================*

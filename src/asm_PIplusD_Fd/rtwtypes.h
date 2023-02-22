@@ -1,11 +1,11 @@
 /*
  * File: rtwtypes.h
  *
- * Code generated for Simulink model 'M2_PZT_Control'.
+ * Code generated for Simulink model 'ASM_PIplusD_Fd'.
  *
- * Model version                  : 1.900
- * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Tue Aug 24 14:24:24 2021
+ * Model version                  : 5.36
+ * Simulink Coder version         : 9.4 (R2020b) 29-Jul-2020
+ * C/C++ source code generated on : Tue Feb 21 19:24:07 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -18,13 +18,13 @@
 
 /* Logical type definitions */
 #if (!defined(__cplusplus))
-#  ifndef false
-#   define false                       (0U)
-#  endif
+#ifndef false
+#define false                          (0U)
+#endif
 
-#  ifndef true
-#   define true                        (1U)
-#  endif
+#ifndef true
+#define true                           (1U)
+#endif
 #endif
 
 /*=======================================================================*

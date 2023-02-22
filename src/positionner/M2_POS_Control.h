@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'M2_POS_Control'.
  *
- * Model version                  : 1.1023
- * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Tue Mar 15 15:30:19 2022
+ * Model version                  : 5.76
+ * Simulink Coder version         : 9.4 (R2020b) 29-Jul-2020
+ * C/C++ source code generated on : Fri Sep  2 12:29:45 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -18,7 +18,7 @@
 #include <string.h>
 #include <stddef.h>
 #ifndef M2_POS_Control_COMMON_INCLUDES_
-# define M2_POS_Control_COMMON_INCLUDES_
+#define M2_POS_Control_COMMON_INCLUDES_
 #include "rtwtypes.h"
 #endif                                 /* M2_POS_Control_COMMON_INCLUDES_ */
 
@@ -26,11 +26,11 @@
 
 /* Macros for accessing real-time model data structure */
 #ifndef rtmGetErrorStatus
-# define rtmGetErrorStatus(rtm)        ((rtm)->errorStatus)
+#define rtmGetErrorStatus(rtm)         ((rtm)->errorStatus)
 #endif
 
 #ifndef rtmSetErrorStatus
-# define rtmSetErrorStatus(rtm, val)   ((rtm)->errorStatus = (val))
+#define rtmSetErrorStatus(rtm, val)    ((rtm)->errorStatus = (val))
 #endif
 
 /* Block states (default storage) for system '<Root>' */
@@ -40,11 +40,6 @@ typedef struct {
 
 /* Constant parameters (default storage) */
 typedef struct {
-  /* Expression: m2pos.Km2p_dec
-   * Referenced by: '<S1>/Gain'
-   */
-  real_T Gain_Gain[1764];
-
   /* Expression: kron(eye(42),[1;-1])
    * Referenced by: '<S1>/kron(eye(42),[1;-1])'
    */
@@ -88,12 +83,6 @@ extern void M2_POS_Control_terminate(void);
 extern RT_MODEL_M2_POS_Control_T *const M2_POS_Control_M;
 
 /*-
- * These blocks were eliminated from the model due to optimizations:
- *
- * Block '<S1>/m2_pos_en' : Eliminated nontunable gain of 1
- */
-
-/*-
  * The generated code includes comments that allow you to trace directly
  * back to the appropriate location in the model.  The basic format
  * is <system>/block_name, where system is the system number (uniquely
@@ -105,13 +94,13 @@ extern RT_MODEL_M2_POS_Control_T *const M2_POS_Control_M;
  * MATLAB hilite_system command to trace the generated code back
  * to the parent model.  For example,
  *
- * hilite_system('ims_Build5pt1f/M2_POS_Control')    - opens subsystem ims_Build5pt1f/M2_POS_Control
- * hilite_system('ims_Build5pt1f/M2_POS_Control/Kp') - opens and selects block Kp
+ * hilite_system('ims_Build5pt3b_PTTasm/M2_POS_Control')    - opens subsystem ims_Build5pt3b_PTTasm/M2_POS_Control
+ * hilite_system('ims_Build5pt3b_PTTasm/M2_POS_Control/Kp') - opens and selects block Kp
  *
  * Here is the system hierarchy for this model
  *
- * '<Root>' : 'ims_Build5pt1f'
- * '<S1>'   : 'ims_Build5pt1f/M2_POS_Control'
+ * '<Root>' : 'ims_Build5pt3b_PTTasm'
+ * '<S1>'   : 'ims_Build5pt3b_PTTasm/M2_POS_Control'
  */
 #endif                                 /* RTW_HEADER_M2_POS_Control_h_ */
 

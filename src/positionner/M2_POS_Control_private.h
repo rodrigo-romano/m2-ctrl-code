@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'M2_POS_Control'.
  *
- * Model version                  : 1.1023
- * Simulink Coder version         : 9.0 (R2018b) 24-May-2018
- * C/C++ source code generated on : Tue Mar 15 15:30:19 2022
+ * Model version                  : 5.76
+ * Simulink Coder version         : 9.4 (R2020b) 29-Jul-2020
+ * C/C++ source code generated on : Fri Sep  2 12:29:45 2022
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -16,7 +16,7 @@
 #ifndef RTW_HEADER_M2_POS_Control_private_h_
 #define RTW_HEADER_M2_POS_Control_private_h_
 #include "rtwtypes.h"
-#endif                                 /* RTW_HEADER_M2_POS_Control_private_h_ */
+#endif                                /* RTW_HEADER_M2_POS_Control_private_h_ */
 
 /*
  * File trailer for generated code.
