@@ -1,13 +1,18 @@
-[package]
-name = "fsm"
-version = "0.1.0"
+[workspace]
+members = ["asm/preshape-filter", "asm/pid-damping"]
+
+[workspace.package]
+authors = ["Rod Conan <rconan@gmto.org>"]
 edition = "2021"
+license = "MIT"
+description = "Giant Magellan Telescope primary mirror control system"
+repository = "https://github.com/rconan/m1-ctrl"
+documentation = "https://docs.rs/gmt_m1-ctrl"
+readme = "README.md"
+categories = ["science", "simulation"]
+keywords = ["telescope", "astronomy"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
-paste = "1.0.6"
-simulink-binder = "0.1.1"
-
-[build-dependencies]
-cc = "1.0.73"
+[workspace.dependencies]
+bindgen = "0.63.0"
+cc = "1.0.68"
+matio-rs = "1.1.2"
