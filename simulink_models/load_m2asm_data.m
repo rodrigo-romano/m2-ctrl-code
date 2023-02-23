@@ -134,11 +134,11 @@ save('../calib_dt/m2asm_ctrl_dt.mat',...
 [preshapeBessel_step_y,preshapeBessel_step_t] = step(flag_d);
 G_fb_fd = [-Cpi_d-st.asm.Kd*Hpd_d;-st.asm.Kfd*Hpd_d];
 % Columns of asm_fb_y:
-[asm_fb_y, asm_fb_t] = impulse(G_fb_fd);
+[asm_fb_imp_y, asm_fb_imp_t] = impulse(G_fb_fd);
 
 if (update_test_dt && ~exist('m2asm_tests','var'))
     save('m2asm_tests','preshapeBessel_step_y','preshapeBessel_step_t',...
-        'asm_fb_y','asm_fb_t');
+        'asm_fb_imp_y','asm_fb_imp_t');
 end
 
 
