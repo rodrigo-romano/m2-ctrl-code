@@ -14,3 +14,6 @@ keywords.workspace = true
 [build-dependencies]
 cc.workspace = true
 bindgen.workspace = true
+
+[dev-dependencies]
+matio-rs.workspace = true
