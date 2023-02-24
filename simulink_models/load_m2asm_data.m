@@ -73,8 +73,10 @@ Cpi_d = c2d(st.asm.fpi,Ts,c2d_opts);
 Hpd_d = c2d(st.asm.fpd,Ts,c2d_opts);
 
 
-%% ASM feedforward (FF) modal controller
+%% ASM feedforward (FF) modal controller parameters
+%%
 
+% Load structural model
 ModelFolder = fullfile(im.lfFolder,"20210611_1336_MT_mount_v202104_ASM_full_epsilon");
 % ModelFolder = fullfile(im.lfFolder,"20230131_1605_zen_30_M1_202110_ASM_202208_Mount_202111");
 
@@ -85,24 +87,7 @@ FileName = "modal_state_space_model_2ndOrder.mat";
 fprintf('Loading model file %s\n from folder \n%s\n', FileName, ModelFolder);
 
 %%
-
-
-
-
-
-% % INPUT MATRIX
-% in1 = inputTable{sprintf('MC_M2_S%d_VC_delta_F',m2_seg),"indices"}{1}(:);
-% in2 = inputTable{sprintf('MC_M2_S%d_fluid_damping_F',m2_seg),"indices"}{1}(:);
-% b_ = [B(:,in1)*XiFS(:,1:n_Zmodes),B(:,in2)*XiFS(:,1:n_Zmodes)];
-% nu = size(b_,2);
-% 
-% % OUTPUT MATRIX
-% out1 = outputTable{sprintf('MC_M2_S%d_VC_delta_D',m2_seg),"indices"}{1}(:);
-% out2 = outputTable{sprintf('M2_segment_%d_axial_d',m2_seg),"indices"}{1}(:);
-% c_ = [XiFS(:,1:n_Zmodes)'*C(out1,:); XiFS(:,1:n_Zmodes)'*C(out2,:)];
-
-
-% Loop over the segments to:
+%% Loop over the segments to:
 % 1) Create modal transformation matrix
 XiFS = cell(7,1);
 % 2) Compute ASM modal stiffness matrices
@@ -121,7 +106,8 @@ for iseg = 1:7
     end
     
     % Check for location differences between segments
-    if(iseg>1 && (~isequal(xFS_,xFS) || ~isequal(yFS_,yFS)))
+    node_tol = 1e-3;    % Tolerance to accommodate mesh inaccuracies
+    if(iseg>1 && (any( abs(xyFS_ - complex(xFS,yFS)) > node_tol )))
         fprintf('FS node coordinates of S%d and S%d are different!\n',iseg,iseg-1);
     end
     
@@ -143,7 +129,7 @@ for iseg = 1:7
     VC_modal_stiff{iseg} = eye(n_Zmodes) / DCg;
     
     % Save coordinates to check for differences between segments
-    xFS_ = xFS; yFS_ = yFS;
+    xyFS_ = complex(xFS,yFS);
 end
 
 % Update Ks with ASM modal stiffness
@@ -181,47 +167,3 @@ if (update_test_dt && ~exist('m2asm_tests','var'))
     save('m2asm_tests','preshapeBessel_step_y','preshapeBessel_step_t',...
         'asm_fb_imp_y','asm_fb_imp_t');
 end
-
-
-
-
-
-
-
-%%
-%%
-
-% FileName = fullfile(ModelFolder,"modal_state_space_model_2ndOrder_postproc_45m1_66m2Modes_.mat");
-% if(~exist('FEM_IO','var') || 0)
-%     load(FileName,'FEM_IO','Phi','Phim','eigenfrequencies','proportionalDampingVec');
-% end
-% 
-% fprintf('Model from %s loaded.\n', FileName);
-% 
-% % Matrix with initial (col1) and final (col2) indices of each output
-% get_IO_ranges = @(x)[cumsum(x)-x+1,cumsum(x)];
-% 
-% FEM_output_ind_dt = get_IO_ranges(FEM_IO.outputs_size);
-% FEM_input_ind_dt = get_IO_ranges(FEM_IO.inputs_size);
-% 
-% % Compute ASM modal stiffness matrices
-% VC_modal_stiff = cell(7,1);
-% for iseg = 1:7
-%     % VC IO indexes
-%     idx = contains(FEM_IO.inputs_name,sprintf('M2_S%d_FS-CP_modal_F',iseg));
-%     in_idxs = FEM_input_ind_dt(idx,:);
-%     idx = contains(FEM_IO.outputs_name,sprintf('M2_S%d_FS-RB_modal_D',iseg));
-%     out_idxs = FEM_output_ind_dt(idx,:);
-%     
-%     % Compute the VC modal stiffness matrix
-% %     DCg = -C(out_idxs(1):out_idxs(2),:)*(A\B(:,in_idxs(1):in_idxs(2)));
-%     
-%     DCg = Phi(out_idxs(1):out_idxs(2),4:end) *...
-%         diag(1./((2*pi*eigenfrequencies(4:end)).^2)) *...
-%         Phim(in_idxs(1):in_idxs(2),4:end)';
-%     VC_modal_stiff{iseg} = inv(DCg);
-% end
-% 
-% % Update Ks with ASM modal stiffness
-% Ks = VC_modal_stiff;
-
