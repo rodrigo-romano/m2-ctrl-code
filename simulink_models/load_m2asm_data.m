@@ -5,30 +5,58 @@
 % 
 % Fev, 2023: Segment-wise implementation
 
+% Flag to save/update test data file
+update_test_dt = true; %false;
 % Flag to save/update controller data file
-update_test_dt = true;
+update_calib_dt = true; %false;
 % Controller sampling period
 Ts = 1/8e3;
 
+% 2nd-order underdamped function
+sndUDampF = @(fc,damp) zpk([],...
+    [-fc*2*pi*(damp + 1i*sqrt(1-damp^2)),...
+    -fc*2*pi*(damp - 1i*sqrt(1-damp^2))], (fc*2*pi)^2);
 
+
+%% Load structural model
 %%
+% The structural model is required to compute:
+% - The ASM stiffness matrix
 
-% st variable
+% ModelFolder = fullfile(im.lfFolder,"20210611_1336_MT_mount_v202104_ASM_full_epsilon");
+ModelFolder = fullfile(im.lfFolder,"20230131_1605_zen_30_M1_202110_ASM_202208_Mount_202111");
 
-% Load parameters of controllers and other subsystems
+% FileName = "modal_state_space_model_2ndOrder.mat";
+FileName = "modal_state_space_model_2ndOrder_300Hz.mat";
+    load(fullfile(ModelFolder,FileName),'inputs2ModalF','modalDisp2Outputs',...
+        'eigenfrequencies','proportionalDampingVec','inputTable','outputTable');
+
+fprintf('Loading model file %s\n from folder \n%s\n', FileName, ModelFolder);
+
+StatFName = "static_reduction_model.mat";
+if(exist(fullfile(ModelFolder,StatFName),'file'))
+    try
+        load(fullfile(ModelFolder,StatFName),'gainMatrixMountControlled');
+        gainMatrix = gainMatrixMountControlled;
+    catch
+        load(fullfile(ModelFolder,StatFName),'gainMatrix');
+    end
+    no_static_gain = 0;
+else
+    warning('No static model file is available in the specified folder.');
+    no_static_gain = 1;
+end
+
+%% Load variable (st) with the ASM controller parameters
+%%
 
 % File with controller and interface parameters
 fprintf('Loading the controller TFs using getcontrol_asm()\n');
 asm_script_folder = '/Users/rromano/Workspace/GMT-IMS/controllers';
 addpath(asm_script_folder)
 st = getcontrol_asm();
-if(1)
-    fc=44.62;   % [Hz] controller unit-magnitude crossover
-    f2=22.4;    % [Hz] low-freq-lag
-    st.ngao.fao=tf(2*pi*fc*1,[1 0])*tf([1 2*pi*f2],[1 0]);
-end
-
 rmpath(asm_script_folder)
+
 
 %% ASM inner loop controller preshape filter
 %%
@@ -75,19 +103,7 @@ Hpd_d = c2d(st.asm.fpd,Ts,c2d_opts);
 
 %% ASM feedforward (FF) modal controller parameters
 %%
-
-% Load structural model
-ModelFolder = fullfile(im.lfFolder,"20210611_1336_MT_mount_v202104_ASM_full_epsilon");
-% ModelFolder = fullfile(im.lfFolder,"20230131_1605_zen_30_M1_202110_ASM_202208_Mount_202111");
-
-FileName = "modal_state_space_model_2ndOrder.mat";
-    load(fullfile(ModelFolder,FileName),'inputs2ModalF','modalDisp2Outputs',...
-        'eigenfrequencies','proportionalDampingVec','inputTable','outputTable');
-
-fprintf('Loading model file %s\n from folder \n%s\n', FileName, ModelFolder);
-
-%%
-%% Loop over the segments to:
+% Loop over the segments to:
 % 1) Create modal transformation matrix
 XiFS = cell(7,1);
 % 2) Compute ASM modal stiffness matrices
@@ -136,7 +152,72 @@ end
 Ks = VC_modal_stiff;
 
 
+%% M2 Positioner parameters
+%%
+
+% M2 pos act force inputs indices
+in1 = inputTable{'MC_M2_SmHex_F',"indices"}{1}(1:2:end);	%macrocell side
+in2 = inputTable{'MC_M2_SmHex_F',"indices"}{1}(2:2:end);	%mirror segment side
+% M2 POS displacement indices
+out1 = outputTable{'MC_M2_SmHex_D',"indices"}{1}(1:2:end);	%macrocell side
+out2 = outputTable{'MC_M2_SmHex_D',"indices"}{1}(2:2:end);	%mirror seg side
+% M2 RB output indices
+out3 = outputTable{'MC_M2_RB_6D',"indices"}{1};             %M2 RB RBM (local CS)
+
+if(no_static_gain)    
+    % Static gain from MC_M2_SmHex_F to M2_RB_RBM
+    dcG1 = -C(out3,:) * (A\ (B(:,in1)-B(:,in2)));
+    % Static gain from MC_M2_SmHex_F to MC_M2_SmHex_D
+    dcG2 = -(C(out1,:)-C(out2,:)) * (A\ (B(:,in1)-B(:,in2)));
+else
+    dcG1 = gainMatrix(out3,in1)-gainMatrix(out3,in2);
+    dcG2 = gainMatrix(out1,in1)-gainMatrix(out1,in2)...
+        -gainMatrix(out2,in1)+gainMatrix(out2,in2);
+end
+
+% M2 POS decoupling matrix M2_RB_RBM -> MC_M2_SmHex_D
+Km2p_dec = dcG1\dcG2;
+
+% Check eventual coupling
+if(1)   % Some coupling checks
+    figure(444)
+    imagesc(Km2p_dec)
+    ylabel('MC\_M2\_SmHex\_D'); xlabel('M2\_RBM');
+    colorbar
+end
+
+% M2P Controller output to f=differential force transformation
+to_diff_m2p_F = kron(eye(6),[1;-1]);
+
+% Nominal M2P striffness
+k2p_stiff0 = 122e6;
+% M2P ACT striffnesses
+k2p_stiff_vec = 1./diag(dcG2);
+k2p_stiff = mean(k2p_stiff_vec);
+if(any(std(k2p_stiff_vec)./k2p_stiff_vec > 1e-3))
+    warning('The M2P ACT stiffness variability is unusually high!');
+end
+
+if(abs(k2p_stiff-k2p_stiff0)/k2p_stiff0 > 0.01)
+    warning('Avg M2P stiffness unusually different from the nominal value.');
+    fprintf('* Updating M2P stiffness value: \n%.4g(N/m) -> %.4g(N/m)\n *',...
+        k2p_stiff0,k2p_stiff);
+else
+    k2p_stiff = k2p_stiff0;
+end
+
+
+% M2POS feedback controller: I + Roll-off filter
+fc = 2;     %[Hz] Crossover frequency
+
+kc = 2*pi * fc *k2p_stiff;
+% Remark: controller gain not incorporated to the TF
+fbH = tf(1,[1 0]) * sndUDampF(10,0.5);
+m2p_Cfb_d = c2d(tf(fbH), Ts, 'foh');
+
+
 %% Load simulink model
+%%
 ModelFName = 'm2asm_2_rust';
 open(sprintf('%s.slx',ModelFName));
 deltaT = Ts;    % Fixed-step solver sampling period
@@ -145,25 +226,47 @@ deltaT = Ts;    % Fixed-step solver sampling period
 %% Calibration-dependent matrices
 %%
 
-Km = st.asm.Km; Kb = st.asm.Kb;
+% M2P decoupling matrix for each segment
+Km2pS1_dec = Km2p_dec(1:6,1:6);
+Km2pS2_dec = Km2p_dec((1:6)+6,(1:6)+6);
+Km2pS3_dec = Km2p_dec((1:6)+12,(1:6)+12);
+Km2pS4_dec = Km2p_dec((1:6)+18,(1:6)+18);
+Km2pS5_dec = Km2p_dec((1:6)+24,(1:6)+24);
+Km2pS6_dec = Km2p_dec((1:6)+30,(1:6)+30);
+Km2pS7_dec = Km2p_dec((1:6)+36,(1:6)+36);
+
+% Zernike modal shape matrices
 V_S1 = XiFS{1}; V_S2 = XiFS{2}; V_S3 = XiFS{3}; V_S4 = XiFS{4};
 V_S5 = XiFS{5}; V_S6 = XiFS{6}; V_S7 = XiFS{7};
+% Static feedforward term
 KsS1_66 = Ks{1}; KsS2_66 = Ks{2}; KsS3_66 = Ks{3};
 KsS4_66 = Ks{4}; KsS5_66 = Ks{5}; KsS6_66 = Ks{6}; KsS7_66 = Ks{7};
+% Dynamic feedforward terms
+Km = st.asm.Km; Kb = st.asm.Kb;
+% File with calibration matrices
+if(~update_calib_dt)
+    save('../calib_dt/m2asm_ctrl_dt.mat', 'Km', 'Kb',...
+        'KsS1_66', 'KsS2_66', 'KsS3_66', 'KsS4_66',...
+        'KsS5_66', 'KsS6_66', 'KsS7_66',...
+        'V_S1','V_S2','V_S3','V_S4','V_S5','V_S6','V_S7',...
+        'Km2pS1_dec','Km2pS2_dec','Km2pS3_dec','Km2pS4_dec',...
+        'Km2pS5_dec','Km2pS6_dec','Km2pS7_dec', 'k2p_stiff');
+end
 
-save('../calib_dt/m2asm_ctrl_dt.mat','Km', 'Kb',...
-    'KsS1_66', 'KsS2_66', 'KsS3_66', 'KsS4_66',...
-    'KsS5_66', 'KsS6_66', 'KsS7_66',...
-    'V_S1','V_S2','V_S3','V_S4','V_S5','V_S6','V_S7');
-
-% Test/verification step data
+%% Test/verification step data
+%%
 % Columns of preshapeBessel_step_y: [cmd_f, dot_cmd_f, ddot_cmd_f]
 [preshapeBessel_step_y,preshapeBessel_step_t] = step(flag_d);
 G_fb_fd = [-Cpi_d-st.asm.Kd*Hpd_d;-st.asm.Kfd*Hpd_d];
-% Columns of asm_fb_y:
+% Columns of asm_fb_imp_y:
 [asm_fb_imp_y, asm_fb_imp_t] = impulse(G_fb_fd);
-
+% M2POS FB controller impulse test data
+[m2pact_fb_imp_y, m2pact_fb_imp_t] = impulse(kc*m2p_Cfb_d);
 if (update_test_dt && ~exist('m2asm_tests','var'))
     save('m2asm_tests','preshapeBessel_step_y','preshapeBessel_step_t',...
-        'asm_fb_imp_y','asm_fb_imp_t');
+        'asm_fb_imp_y','asm_fb_imp_t',...
+        'm2pact_fb_imp_y','m2pact_fb_imp_t');
 end
+
+
+%[eof]
