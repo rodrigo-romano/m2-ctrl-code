@@ -1,19 +1,45 @@
-use std::path::PathBuf;
+use std::{
+    env, fs,
+    path::{Path, PathBuf},
+};
 
 fn main() {
-    cc::Build::new()
-        .file("sys/ASM_preshapeBesselF.c")
-        .file("sys/ASM_preshapeBesselF_data.c")
-        .compile("asm_preshape_bessel_filter");
-    println!(
-        "cargo:rustc-link-search=native={}",
-        "libasm_preshape_bessel_filter"
-    );
-    println!("cargo:rustc-link-lib=asm_preshape_bessel_filter");
-    println!("cargo:rerun-if-changed=sys/ASM_preshapeBesselF.h");
+    let lib = env::var("CARGO_PKG_NAME").unwrap();
+    let sys = Path::new("sys");
 
-    let bindings = bindgen::builder()
-        .header("sys/ASM_preshapeBesselF.h")
+    let mut cc_builder = cc::Build::new();
+    let mut bindings = bindgen::builder();
+
+    if let Ok(entries) = fs::read_dir(sys) {
+        for entry in entries {
+            if let Ok(entry) = entry {
+                let file_name = entry.path();
+                if let Some(extension) = file_name.extension() {
+                    match extension.to_str() {
+                        Some("c") => {
+                            cc_builder.file(file_name);
+                        }
+                        Some("h") => {
+                            bindings = bindings.header(
+                                file_name
+                                    .to_str()
+                                    .expect(&format!("{:?} conversion to str failed", file_name)),
+                            );
+                            println!("cargo:rerun-if-changed={:}", file_name.to_str().unwrap());
+                        }
+                        _ => (),
+                    }
+                }
+            }
+        }
+    }
+
+    cc_builder.compile(lib.as_str());
+
+    println!("cargo:rustc-link-search=native=lib{}", lib);
+    println!("cargo:rustc-link-lib={}", lib);
+
+    let bindings = bindings
         .parse_callbacks(Box::new(bindgen::CargoCallbacks))
         .generate()
         .expect("Unable to generate bindings");
