@@ -1,6 +1,6 @@
 [package]
-name = "gmt_m2-ctrl_asm_preshape-filter"
-version = "0.1.1"
+name = "gmt_m2-ctrl_asm_positionner"
+version = "0.1.0"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true

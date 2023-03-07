@@ -165,20 +165,35 @@ checksum = "d2fabcfbdc87f4758337ca535fb41a6d701b65693ce38287d856d1674551ec9b"
 
 [[package]]
 name = "gmt_m2-ctrl_asm_pid-damping"
+version = "0.1.1"
+dependencies = [
+ "bindgen 0.63.0",
+ "cc",
+ "matio-rs",
+ "paste",
+ "simulink-binder",
+]
+
+[[package]]
+name = "gmt_m2-ctrl_asm_positionner"
 version = "0.1.0"
 dependencies = [
  "bindgen 0.63.0",
  "cc",
  "matio-rs",
+ "paste",
+ "simulink-binder",
 ]
 
 [[package]]
 name = "gmt_m2-ctrl_asm_preshape-filter"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "bindgen 0.63.0",
  "cc",
  "matio-rs",
+ "paste",
+ "simulink-binder",
 ]
 
 [[package]]
@@ -296,9 +311,9 @@ checksum = "b7e5500299e16ebb147ae15a00a942af264cf3688f47923b8fc2cd5858f23ad3"
 
 [[package]]
 name = "paste"
-version = "1.0.11"
+version = "1.0.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d01a5bd0424d00070b0098dd17ebca6f961a959dead1dbcbbbc1d1cd8d3deeba"
+checksum = "9f746c4065a8fa3fe23974dd82f15431cc8d40779821001404d10d2e79ca7d79"
 
 [[package]]
 name = "peeking_take_while"
@@ -352,6 +367,19 @@ name = "shlex"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "43b2853a4d09f215c24cc5489c992ce46052d359b5109343cbafbf26bc62f8a3"
+
+[[package]]
+name = "simulink-binder"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e8e7d9b48a2d54470c054b13aa5d32ce1714273ca61be60d11557a988d12ff48"
+dependencies = [
+ "paste",
+ "proc-macro2",
+ "quote",
+ "regex",
+ "syn",
+]
 
 [[package]]
 name = "strsim"
