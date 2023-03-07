@@ -78,8 +78,8 @@ mod tests {
     #[test]
     fn impulse() {
         let mat = MatFile::load("../../simulink_models/m2asm_tests.mat").unwrap();
-        let asm_fb_t: Vec<f64> = mat.var("asm_fb_t").unwrap();
-        let asm_fb_y: Vec<f64> = mat.var("asm_fb_y").unwrap();
+        let asm_fb_t: Vec<f64> = mat.var("asm_fb_imp_t").unwrap();
+        let asm_fb_y: Vec<f64> = mat.var("asm_fb_imp_y").unwrap();
 
         let n = asm_fb_t.len();
 
