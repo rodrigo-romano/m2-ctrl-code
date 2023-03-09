@@ -3,8 +3,7 @@
 #![allow(non_snake_case)]
 #![allow(improper_ctypes)]
 
-simulink_binder::import! {ASM_preshapeBesselF}
-pub type AsmPreshapeFilter = ASM_preshapeBesselF;
+simulink_rs::import! {AsmPreshapeFilter}
 
 #[cfg(test)]
 mod tests {

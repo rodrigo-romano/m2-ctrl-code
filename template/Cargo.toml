@@ -1,5 +1,5 @@
 [package]
-name = "gmt_m2-ctrl_asm_preshape-filter"
+name = |package name|
 version = "0.1.0"
 authors.workspace = true
 edition.workspace = true
@@ -13,11 +13,10 @@ keywords.workspace = true
 
 [dependencies]
 paste.workspace = true
-simulink-rs.workspace = true
+simulink-builder.workspace = true
 
 [build-dependencies]
-simulink-rs.workspace = true
-
+simulink-builder.workspace = true
 
 [dev-dependencies]
 matio-rs.workspace = true

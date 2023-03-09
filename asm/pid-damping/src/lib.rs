@@ -3,8 +3,7 @@
 #![allow(non_snake_case)]
 #![allow(improper_ctypes)]
 
-simulink_binder::import! {ASM_PIplusD_Fd}
-pub type AsmPidDamping = ASM_PIplusD_Fd;
+simulink_rs::import! {AsmPidDamping}
 
 #[cfg(test)]
 mod tests {

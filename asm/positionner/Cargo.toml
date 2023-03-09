@@ -13,11 +13,10 @@ keywords.workspace = true
 
 [dependencies]
 paste.workspace = true
-simulink-binder.workspace = true
+simulink-rs.workspace = true
 
 [build-dependencies]
-cc.workspace = true
-bindgen.workspace = true
+simulink-rs.workspace = true
 
 [dev-dependencies]
 matio-rs.workspace = true
