@@ -3,4 +3,4 @@
 #![allow(non_snake_case)]
 #![allow(improper_ctypes)]
 
-simulink_rs::import! {|controller Rust tructure|}
+simulink_rs::import! {...}
