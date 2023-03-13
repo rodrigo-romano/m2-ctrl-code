@@ -165,28 +165,25 @@ checksum = "d2fabcfbdc87f4758337ca535fb41a6d701b65693ce38287d856d1674551ec9b"
 
 [[package]]
 name = "gmt_m2-ctrl_asm_pid-damping"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "matio-rs",
- "paste",
  "simulink-rs",
 ]
 
 [[package]]
 name = "gmt_m2-ctrl_asm_positionner"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "matio-rs",
- "paste",
  "simulink-rs",
 ]
 
 [[package]]
 name = "gmt_m2-ctrl_asm_preshape-filter"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "matio-rs",
- "paste",
  "simulink-rs",
 ]
 
@@ -363,27 +360,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "43b2853a4d09f215c24cc5489c992ce46052d359b5109343cbafbf26bc62f8a3"
 
 [[package]]
-name = "simulink-binder"
+name = "simulink-rs"
 version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "91699bb45f4e549c23d784ebe9d6849111d4c154ece9ecb0cf29cd78db379d70"
-dependencies = [
- "paste",
- "proc-macro2",
- "quote",
- "regex",
- "syn",
-]
-
-[[package]]
-name = "simulink-rs"
-version = "1.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5f12b7e738807d704ab9ddcbb06de6eaa0af45e3bc811320c941324d8e70c810"
+checksum = "c73e1b3ec4218939ee642f1ef344915b1b6fabc485a57d3e803a2d9c22d6200e"
 dependencies = [
  "bindgen 0.64.0",
  "cc",
- "simulink-binder",
+ "regex",
 ]
 
 [[package]]

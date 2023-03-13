@@ -1,6 +1,6 @@
 [package]
 name = "gmt_m2-ctrl_asm_pid-damping"
-version = "0.1.0"
+version = "0.1.1"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -12,7 +12,6 @@ categories.workspace = true
 keywords.workspace = true
 
 [dependencies]
-paste.workspace = true
 simulink-rs.workspace = true
 
 [build-dependencies]

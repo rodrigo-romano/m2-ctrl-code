@@ -3,7 +3,9 @@
 #![allow(non_snake_case)]
 #![allow(improper_ctypes)]
 
-simulink_rs::import! {AsmPidDamping}
+include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+
+include!(concat!(env!("OUT_DIR"), "/controller.rs"));
 
 #[cfg(test)]
 mod tests {
@@ -12,7 +14,11 @@ mod tests {
 
     #[test]
     fn impulse() {
-        let mat = MatFile::load("../../simulink_models/m2asm_tests.mat").unwrap();
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("..")
+            .join("simulink_models")
+            .join("m2asm_tests.mat");
+        let mat = MatFile::load(path.to_str().unwrap()).unwrap();
         let asm_fb_t: Vec<f64> = mat.var("asm_fb_imp_t").unwrap();
         let asm_fb_y: Vec<f64> = mat.var("asm_fb_imp_y").unwrap();
 
