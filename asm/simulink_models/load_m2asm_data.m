@@ -26,8 +26,8 @@ sndUDampF = @(fc,damp) zpk([],...
 % ModelFolder = fullfile(im.lfFolder,"20210611_1336_MT_mount_v202104_ASM_full_epsilon");
 ModelFolder = fullfile(im.lfFolder,"20230131_1605_zen_30_M1_202110_ASM_202208_Mount_202111");
 
-% FileName = "modal_state_space_model_2ndOrder.mat";
-FileName = "modal_state_space_model_2ndOrder_300Hz.mat";
+FileName = "modal_state_space_model_2ndOrder.mat";
+% FileName = "modal_state_space_model_2ndOrder_300Hz.mat";
     load(fullfile(ModelFolder,FileName),'inputs2ModalF','modalDisp2Outputs',...
         'eigenfrequencies','proportionalDampingVec','inputTable','outputTable');
 
@@ -139,9 +139,13 @@ for iseg = 1:7
     out_ = outputTable{sprintf('MC_M2_S%d_VC_delta_D',iseg),"indices"}{1}(:);
     
     % Compute the VC modal stiffness matrix    
-    DCg = XiFS{iseg}' * modalDisp2Outputs(out_,4:end) *...
-        diag(1./((2*pi*eigenfrequencies(4:end)).^2)) *...
-        inputs2ModalF(4:end,in_) * XiFS{iseg};
+    if(no_static_gain)
+        DCg = XiFS{iseg}' * modalDisp2Outputs(out_,4:end) *...
+            diag(1./((2*pi*eigenfrequencies(4:end)).^2)) *...
+            inputs2ModalF(4:end,in_) * XiFS{iseg};
+    else
+        DCg = XiFS{iseg}' * gainMatrix(out_,in_) * XiFS{iseg};
+    end
     VC_modal_stiff{iseg} = eye(n_Zmodes) / DCg;
     
     % Save coordinates to check for differences between segments
@@ -166,9 +170,14 @@ out3 = outputTable{'MC_M2_RB_6D',"indices"}{1};             %M2 RB RBM (local CS
 
 if(no_static_gain)    
     % Static gain from MC_M2_SmHex_F to M2_RB_RBM
-    dcG1 = -C(out3,:) * (A\ (B(:,in1)-B(:,in2)));
+    dcG1 = -modalDisp2Outputs(out3,4:end) *...
+        diag(1./((2*pi*eigenfrequencies(4:end)).^2))*...
+        (inputs2ModalF(4:end,in1)-inputs2ModalF(4:end,in2));
     % Static gain from MC_M2_SmHex_F to MC_M2_SmHex_D
-    dcG2 = -(C(out1,:)-C(out2,:)) * (A\ (B(:,in1)-B(:,in2)));
+    dcG2 = -...
+        (modalDisp2Outputs(out1,4:end)-modalDisp2Outputs(out2,4:end))*...
+        diag(1./((2*pi*eigenfrequencies(4:end)).^2))*...
+        (inputs2ModalF(4:end,in1)-inputs2ModalF(4:end,in2));
 else
     dcG1 = gainMatrix(out3,in1)-gainMatrix(out3,in2);
     dcG2 = gainMatrix(out1,in1)-gainMatrix(out1,in2)...
@@ -200,13 +209,13 @@ end
 
 if(abs(k2p_stiff-k2p_stiff0)/k2p_stiff0 > 0.01)
     warning('Avg M2P stiffness unusually different from the nominal value.');
-    fprintf('* Updating M2P stiffness value: \n%.4g(N/m) -> %.4g(N/m)\n *',...
+    fprintf('* Updating M2P stiffness value: \n%.4g(N/m) -> %.4g(N/m) *\n',...
         k2p_stiff0,k2p_stiff);
 else
     k2p_stiff = k2p_stiff0;
 end
 
-
+%%
 % M2POS feedback controller: I + Roll-off filter
 fc = 2;     %[Hz] Crossover frequency
 
@@ -244,7 +253,7 @@ KsS4_66 = Ks{4}; KsS5_66 = Ks{5}; KsS6_66 = Ks{6}; KsS7_66 = Ks{7};
 % Dynamic feedforward terms
 Km = st.asm.Km; Kb = st.asm.Kb;
 % File with calibration matrices
-if(~update_calib_dt)
+if(update_calib_dt)
     save('../calib_dt/m2asm_ctrl_dt.mat', 'Km', 'Kb',...
         'KsS1_66', 'KsS2_66', 'KsS3_66', 'KsS4_66',...
         'KsS5_66', 'KsS6_66', 'KsS7_66',...
