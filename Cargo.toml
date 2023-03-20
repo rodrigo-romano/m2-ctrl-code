@@ -1,5 +1,10 @@
 [workspace]
-members = ["asm/preshape-filter", "asm/pid-damping", "asm/positionner"]
+members = [
+    "asm/preshape-filter",
+    "asm/pid-damping",
+    "asm/positionner",
+    "wfc/ngao",
+]
 
 [workspace.package]
 authors = ["Rod Conan <rconan@gmto.org>"]
