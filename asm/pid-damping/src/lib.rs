@@ -5,70 +5,7 @@
 
 include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 
-/// Simulink controller wrapper
-#[derive(Debug, Clone, Copy, Default)]
-pub struct AsmPidDamping {
-    /// Inputs Simulink structure
-    pub inputs: ExtU_ASM_PIplusD_Fd_T,
-    /// Outputs Simulink structure
-    pub outputs: ExtY_ASM_PIplusD_Fd_T,
-    states: DW_ASM_PIplusD_Fd_T,
-}
-impl Default for ExtU_ASM_PIplusD_Fd_T {
-    fn default() -> Self {
-        ExtU_ASM_PIplusD_Fd_T {
-            asm_SP: 0f64,
-            asm_FB: 0f64,
-            asm_FF: 0f64,
-        }
-    }
-}
-impl Default for ExtY_ASM_PIplusD_Fd_T {
-    fn default() -> Self {
-        ExtY_ASM_PIplusD_Fd_T {
-            asm_U: 0f64,
-            asm_Fd: 0f64,
-        }
-    }
-}
-impl Default for DW_ASM_PIplusD_Fd_T {
-    fn default() -> Self {
-        DW_ASM_PIplusD_Fd_T {
-            ASMPIcontroller_states: 0f64,
-            Numericaldifferentiation_states: 0f64,
-        }
-    }
-}
-impl AsmPidDamping {
-    /// Creates a new controller
-    pub fn new() -> Self {
-        let mut this: Self = Default::default();
-        let mut data: RT_MODEL_ASM_PIplusD_Fd_T = tag_RTM_ASM_PIplusD_Fd_T {
-            dwork: &mut this.states as *mut _,
-        };
-        unsafe {
-            ASM_PIplusD_Fd_initialize(
-                &mut data as *mut _,
-                &mut this.inputs as *mut _,
-                &mut this.outputs as &mut _,
-            )
-        }
-        this
-    }
-    /// Steps the controller
-    pub fn step(&mut self) {
-        let mut data: RT_MODEL_ASM_PIplusD_Fd_T = tag_RTM_ASM_PIplusD_Fd_T {
-            dwork: &mut self.states as *mut _,
-        };
-        unsafe {
-            ASM_PIplusD_Fd_step(
-                &mut data as *mut _,
-                &mut self.inputs as *mut _,
-                &mut self.outputs as &mut _,
-            )
-        }
-    }
-}
+include!(concat!(env!("OUT_DIR"), "/controller.rs"));
 
 #[cfg(test)]
 mod tests {
@@ -77,9 +14,13 @@ mod tests {
 
     #[test]
     fn impulse() {
-        let mat = MatFile::load("../../simulink_models/m2asm_tests.mat").unwrap();
-        let asm_fb_t: Vec<f64> = mat.var("asm_fb_t").unwrap();
-        let asm_fb_y: Vec<f64> = mat.var("asm_fb_y").unwrap();
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("..")
+            .join("simulink_models")
+            .join("m2asm_tests.mat");
+        let mat = MatFile::load(path.to_str().unwrap()).unwrap();
+        let asm_fb_t: Vec<f64> = mat.var("asm_fb_imp_t").unwrap();
+        let asm_fb_y: Vec<f64> = mat.var("asm_fb_imp_y").unwrap();
 
         let n = asm_fb_t.len();
 
