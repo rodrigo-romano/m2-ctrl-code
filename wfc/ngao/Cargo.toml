@@ -16,3 +16,6 @@ simulink-rs.workspace = true
 
 [build-dependencies]
 simulink-rs.workspace = true
+
+[dev-dependencies]
+matio-rs.workspace = true

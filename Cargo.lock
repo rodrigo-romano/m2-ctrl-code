@@ -191,6 +191,7 @@ dependencies = [
 name = "gmt_ngao_temporal_ctrl"
 version = "0.1.0"
 dependencies = [
+ "matio-rs",
  "simulink-rs",
 ]
 
